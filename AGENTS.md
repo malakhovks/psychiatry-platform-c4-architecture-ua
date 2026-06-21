@@ -2,11 +2,11 @@
 
 ## Project Structure & Module Organization
 
-The working package is `psychiatry-platform-c4-ua-release/`. Its main entry point is `workspace.dsl`, which includes modular Structurizr DSL files from `model/` and `views/`. Generated or distributable outputs include `workspace-single-file.dsl`, `previews/`, `Architecture_psychiatry_platform_C4_UA.docx`, and `C1_updated_slide_diagrams_UA.pptx`. Architecture notes live in `adrs/`, narrative documentation in `docs/`, validation results in `validation/`, QA artifacts in `qa/`, schemas in `schemas/`, reusable YAML examples in `examples/`, and helper scripts in `scripts/`.
+The repository root contains the architecture package. Its main entry point is `workspace.dsl`, which includes modular Structurizr DSL files from `model/` and `views/`. Generated or distributable outputs include `workspace-single-file.dsl`, `previews/`, `Architecture_psychiatry_platform_C4_UA.docx`, and `C1_updated_slide_diagrams_UA.pptx`. Architecture notes live in `adrs/`, narrative documentation in `docs/`, validation results in `validation/`, QA artifacts in `qa/`, schemas in `schemas/`, reusable YAML examples in `examples/`, and helper scripts in `scripts/`.
 
 ## Build, Test, and Development Commands
 
-Run commands from `psychiatry-platform-c4-ua-release/`.
+Run commands from the repository root.
 
 - `make build`: rebuilds the portable `workspace-single-file.dsl`.
 - `make validate-static`: runs local static DSL checks, JSON/YAML validation, preview count checks, and C1 text-fit validation.
@@ -25,7 +25,7 @@ Treat validation as the test suite. Before submitting architecture changes, run 
 
 ## Commit & Pull Request Guidelines
 
-This checkout does not include visible Git history, so use concise, imperative, scoped commit subjects such as `docs: update diagram catalog` or `model: add consent relationship`. Pull requests should describe the architectural change, list regenerated artifacts, mention validation commands run, and include screenshots or preview links for diagram changes. Link related issues or ADRs when the change affects clinical, safety, privacy, or deployment decisions.
+Use concise, imperative, scoped commit subjects such as `docs: update diagram catalog` or `model: add consent relationship`. Pull requests should describe the architectural change, list regenerated artifacts, mention validation commands run, and include screenshots or preview links for diagram changes. Link related issues or ADRs when the change affects clinical, safety, privacy, or deployment decisions.
 
 ## Security & Configuration Tips
 
