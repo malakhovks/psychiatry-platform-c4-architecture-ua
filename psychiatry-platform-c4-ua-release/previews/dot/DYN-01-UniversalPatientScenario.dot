@@ -1,0 +1,44 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.25", ranksep="0.30", fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded,filled", fillcolor="#F4F7FA", color="#486581", margin="0.16,0.10"];
+edge [color="#7B8794", penwidth=1.2, arrowsize=0.7];
+label=<<B>DYN.01 — Універсальний сценарій взаємодії з пацієнтом</B><BR/><FONT POINT-SIZE="11">Універсальний наскрізний процес виконання будь-якого формалізованого психіатричного<BR/>сценарію.</FONT>>;
+{ rank=same;
+p_n_b1b0b8de8a62 [label=<<B>Пацієнт</B>>, fillcolor="#084C61", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_8a923be70a11 [label=<<B>Застосунок пацієнта</B>>, fillcolor="#0B7285", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_384146de0c5d [label=<<B>API-шлюз і BFF</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_dcb3f876e224 [label=<<B>Сервіс ідентичності,<BR/>доступу та згод</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_f9075d486a51 [label=<<B>Оркестратор взаємодії</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_78e6a86e3609 [label=<<B>Детермінований рушій<BR/>сценаріїв</B>>, fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_ace1c56edb4b [label=<<B>Реєстр алгоритмів</B>>, fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", shape=box];
+p_n_4a71738c36d2 [label=<<B>Оркестратор ШІ та<BR/>контроль безпеки</B>>, fillcolor="#6741D9", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_40b119007c9f [label=<<B>Клінічне сховище</B>>, fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", shape=box];
+p_n_c210e7db8afd [label=<<B>Сервіс підтримки<BR/>клінічних рішень</B>>, fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_eb4c5110ae64 [label=<<B>Сервіс завдань,<BR/>нагадувань і ескалацій</B>>, fillcolor="#B7791F", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_b10c10dbc143 [label=<<B>Інтеграційний шлюз</B>>, fillcolor="#3B5BDB", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_dff60b2c2060 [label=<<B>Провайдер повідомлень</B>>, fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", shape=box];
+}
+step_01 [label=< <B>1.</B> Пацієнт → Застосунок пацієнта<BR/><FONT POINT-SIZE="10">Розпочинає звернення, обирає канал і надає дані</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 [label=< <B>2.</B> Застосунок пацієнта → API-шлюз і BFF<BR/><FONT POINT-SIZE="10">Надсилає захищений запит</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_01 -> step_02;
+step_03 [label=< <B>3.</B> API-шлюз і BFF → Сервіс ідентичності, доступу<BR/>та згод<BR/><FONT POINT-SIZE="10">Перевіряє ідентичність, повноваження та згоду</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 -> step_03;
+step_04 [label=< <B>4.</B> API-шлюз і BFF → Оркестратор взаємодії<BR/><FONT POINT-SIZE="10">Створює або відновлює діалогову сесію</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_03 -> step_04;
+step_05 [label=< <B>5.</B> Оркестратор взаємодії → Детермінований рушій<BR/>сценаріїв<BR/><FONT POINT-SIZE="10">Запитує детермінований наступний крок</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_04 -> step_05;
+step_06 [label=< <B>6.</B> Детермінований рушій<BR/>сценаріїв → Реєстр алгоритмів<BR/><FONT POINT-SIZE="10">Завантажує закріплену версію алгоритму</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_05 -> step_06;
+step_07 [label=< <B>7.</B> Оркестратор взаємодії → Оркестратор ШІ та контроль<BR/>безпеки<BR/><FONT POINT-SIZE="10">Формує доступне допоміжне представлення кроку</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_06 -> step_07;
+step_08 [label=< <B>8.</B> Детермінований рушій<BR/>сценаріїв → Клінічне сховище<BR/><FONT POINT-SIZE="10">Зберігає типізовані відповіді та проміжний результат</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_07 -> step_08;
+step_09 [label=< <B>9.</B> Детермінований рушій<BR/>сценаріїв → Сервіс підтримки клінічних<BR/>рішень<BR/><FONT POINT-SIZE="10">Передає структурований результат для клінічної агрегації</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_08 -> step_09;
+step_10 [label=< <B>10.</B> Оркестратор взаємодії → Сервіс завдань, нагадувань і<BR/>ескалацій<BR/><FONT POINT-SIZE="10">Створює наступне завдання, контрольну точку або візит</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_09 -> step_10;
+step_11 [label=< <B>11.</B> Сервіс завдань, нагадувань і<BR/>ескалацій → Інтеграційний шлюз<BR/><FONT POINT-SIZE="10">Передає повідомлення або подію зовнішньому каналу</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_10 -> step_11;
+step_12 [label=< <B>12.</B> Інтеграційний шлюз → Провайдер повідомлень<BR/><FONT POINT-SIZE="10">Надсилає мінімізоване нагадування</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_11 -> step_12;
+}

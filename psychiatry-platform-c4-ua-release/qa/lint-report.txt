@@ -1,0 +1,5 @@
+Workspace: workspace-single-file.dsl
+Known identifiers: 424
+Static relationships: 283
+View keys: 41
+Static consistency checks passed.

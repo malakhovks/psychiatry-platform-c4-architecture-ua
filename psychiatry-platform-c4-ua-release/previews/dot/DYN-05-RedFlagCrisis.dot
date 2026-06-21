@@ -1,0 +1,41 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.25", ranksep="0.30", fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded,filled", fillcolor="#F4F7FA", color="#486581", margin="0.16,0.10"];
+edge [color="#7B8794", penwidth=1.2, arrowsize=0.7];
+label=<<B>DYN.05 — Червоний прапорець і кризове реагування</B><BR/><FONT POINT-SIZE="11">Негайне виявлення, ескалація, підтвердження отримання та резервний кризовий маршрут.</FONT>>;
+{ rank=same;
+p_n_b1b0b8de8a62 [label=<<B>Пацієнт</B>>, fillcolor="#084C61", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_8a923be70a11 [label=<<B>Застосунок пацієнта</B>>, fillcolor="#0B7285", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_384146de0c5d [label=<<B>API-шлюз і BFF</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_78e6a86e3609 [label=<<B>Детермінований рушій<BR/>сценаріїв</B>>, fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_eb4c5110ae64 [label=<<B>Сервіс завдань,<BR/>нагадувань і ескалацій</B>>, fillcolor="#B7791F", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_b10c10dbc143 [label=<<B>Інтеграційний шлюз</B>>, fillcolor="#3B5BDB", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_3145c0474e62 [label=<<B>Кризова / екстрена<BR/>служба</B>>, fillcolor="#C92A2A", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_da26d52269a5 [label=<<B>Шина доменних подій</B>>, fillcolor="#C05621", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B>>, fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_f0d38fbc8ca4 [label=<<B>Черговий кризовий<BR/>фахівець</B>>, fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_a8676803ace0 [label=<<B>Кабінет медичного<BR/>працівника</B>>, fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_c210e7db8afd [label=<<B>Сервіс підтримки<BR/>клінічних рішень</B>>, fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#486581", shape=box];
+}
+step_01 [label=< <B>1.</B> Пацієнт → Застосунок пацієнта<BR/><FONT POINT-SIZE="10">Надає відповідь або активує кнопку кризової допомоги</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 [label=< <B>2.</B> Застосунок пацієнта → API-шлюз і BFF<BR/><FONT POINT-SIZE="10">Передає пріоритетний запит</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_01 -> step_02;
+step_03 [label=< <B>3.</B> API-шлюз і BFF → Детермінований рушій<BR/>сценаріїв<BR/><FONT POINT-SIZE="10">Запускає формальну перевірку кризових правил</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 -> step_03;
+step_04 [label=< <B>4.</B> Детермінований рушій<BR/>сценаріїв → Сервіс завдань, нагадувань і<BR/>ескалацій<BR/><FONT POINT-SIZE="10">Створює критичну ескалацію з максимальним строком реакції</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_03 -> step_04;
+step_05 [label=< <B>5.</B> Сервіс завдань, нагадувань і<BR/>ескалацій → Інтеграційний шлюз<BR/><FONT POINT-SIZE="10">Запускає основний і резервний канали</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_04 -> step_05;
+step_06 [label=< <B>6.</B> Інтеграційний шлюз → Кризова / екстрена служба<BR/><FONT POINT-SIZE="10">Передає мінімально необхідну кризову інформацію</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_05 -> step_06;
+step_07 [label=< <B>7.</B> Детермінований рушій<BR/>сценаріїв → Шина доменних подій<BR/><FONT POINT-SIZE="10">Публікує подію червоного прапорця</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_06 -> step_07;
+step_08 [label=< <B>8.</B> Шина доменних подій → Сервіс аудиту та<BR/>спостережуваності<BR/><FONT POINT-SIZE="10">Записує незмінний доказ ескалації</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_07 -> step_08;
+step_09 [label=< <B>9.</B> Черговий кризовий фахівець → Кабінет медичного працівника<BR/><FONT POINT-SIZE="10">Відкриває пріоритетну картку випадку</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_08 -> step_09;
+step_10 [label=< <B>10.</B> Кабінет медичного працівника → API-шлюз і BFF<BR/><FONT POINT-SIZE="10">Фіксує контакт, оцінку та вжиту дію</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_09 -> step_10;
+step_11 [label=< <B>11.</B> API-шлюз і BFF → Сервіс підтримки клінічних<BR/>рішень<BR/><FONT POINT-SIZE="10">Оновлює підтверджену траєкторію та подальші контрольні точки</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_10 -> step_11;
+}

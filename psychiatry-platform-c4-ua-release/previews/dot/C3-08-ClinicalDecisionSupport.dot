@@ -1,0 +1,38 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.08 — Компоненти підтримки клінічних рішень</B><BR/><FONT POINT-SIZE="12">Компоненти нормалізації, агрегації ризику, підбору протоколу, траєкторії, пояснення та<BR/>клінічного контролю.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Сервіс підтримки клінічних рішень</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_4795da56ff09 [label=<<B>Шлюз клінічного<BR/>підтвердження</B><BR/><FONT POINT-SIZE="10">[Компонент · Approval workflow]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_7e489912fcf6 [label=<<B>Нормалізатор клінічних даних</B><BR/><FONT POINT-SIZE="10">[Компонент · Clinical data pipeline]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_bc7fd16123a8 [label=<<B>Формувач пояснення</B><BR/><FONT POINT-SIZE="10">[Компонент · Explainability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_2786301ab559 [label=<<B>Планувальник супроводу</B><BR/><FONT POINT-SIZE="10">[Компонент · Scheduling policy]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_a1dd172a9020 [label=<<B>Підбір протоколів</B><BR/><FONT POINT-SIZE="10">[Компонент · Rules plus retrieval]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_b733dba09e66 [label=<<B>Агрегатор ризиків</B><BR/><FONT POINT-SIZE="10">[Компонент · Deterministic rules]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_206e30b231bc [label=<<B>Планувальник траєкторії</B><BR/><FONT POINT-SIZE="10">[Компонент · Care pathway service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B><BR/><FONT POINT-SIZE="10">[Контейнер · Audit and observability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_40b119007c9f [label=<<B>Клінічне сховище</B><BR/><FONT POINT-SIZE="10">[Сховище даних · FHIR-oriented clinical repository]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_a8676803ace0 [label=<<B>Кабінет медичного працівника</B><BR/><FONT POINT-SIZE="10">[Контейнер · Web application]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_609849034d86 [label=<<B>База знань та індекс пошуку</B><BR/><FONT POINT-SIZE="10">[Сховище даних · Document and vector store]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_78e6a86e3609 [label=<<B>Детермінований рушій<BR/>сценаріїв</B><BR/><FONT POINT-SIZE="10">[Контейнер · Rules engine / finite-state machine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_eb4c5110ae64 [label=<<B>Сервіс завдань, нагадувань і<BR/>ескалацій</B><BR/><FONT POINT-SIZE="10">[Контейнер · Workflow scheduler]</FONT>>, shape=box, style="rounded,filled", fillcolor="#B7791F", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_0a99d320f3b9 [label=<<B>Репозиторій клінічних<BR/>протоколів і знань</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_78e6a86e3609 -> n_40b119007c9f [ label=<Читає та записує відповіді, бали,<BR/>ознаки й структурований результат>];
+n_78e6a86e3609 -> n_eb4c5110ae64 [ label=<Створює контрольні завдання та строки<BR/>реакції>];
+n_78e6a86e3609 -> n_5f5685eeff97 [ label=<Фіксує версію, введення, правило та<BR/>результат обчислення>];
+n_eb4c5110ae64 -> n_5f5685eeff97 [ label=<Реєструє створення, доставку та<BR/>результат завдання>];
+n_7e489912fcf6 -> n_b733dba09e66 [ label=<Передає нормалізовані ознаки та якість>];
+n_b733dba09e66 -> n_a1dd172a9020 [ label=<Передає агрегований ризиковий профіль>];
+n_a1dd172a9020 -> n_0a99d320f3b9 [ label=<Отримує релевантні протоколи й джерела>];
+n_a1dd172a9020 -> n_609849034d86 [ label=<Виконує контрольований пошук>];
+n_a1dd172a9020 -> n_206e30b231bc [ label=<Передає перевірені кандидати<BR/>протоколів>];
+n_206e30b231bc -> n_2786301ab559 [ label=<Формує контрольні точки та строки>];
+n_206e30b231bc -> n_bc7fd16123a8 [ label=<Передає правила й підстави проєкту>];
+n_2786301ab559 -> n_eb4c5110ae64 [ label=<Створює планові завдання після<BR/>підтвердження політики>];
+n_bc7fd16123a8 -> n_4795da56ff09 [ label=<Передає проєкт з поясненням>];
+n_4795da56ff09 -> n_40b119007c9f [ label=<Зберігає проєкт або підтверджене<BR/>рішення>];
+n_4795da56ff09 -> n_5f5685eeff97 [ label=<Фіксує особу, рішення та причину<BR/>відхилення>];
+}

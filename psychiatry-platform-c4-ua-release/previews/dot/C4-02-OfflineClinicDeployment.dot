@@ -1,0 +1,83 @@
+digraph G {
+graph [rankdir=LR, compound=true, bgcolor="white", pad="0.35", nodesep="0.55", ranksep="0.95", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=10, margin="0.12,0.08"];
+edge [fontname="DejaVu Sans", fontsize=8, color="#486581", fontcolor="#334E68", penwidth=1.2, arrowsize=0.7];
+label=<<B>C4.02 — Локальний контур закладу з обмеженим зв&#x27;язком</B><BR/><FONT POINT-SIZE="10">Локальний edge-контур закладу для критичних функцій при обмеженому або нестабільному<BR/>зовнішньому зв&#x27;язку.</FONT>>;
+subgraph cluster_n_089c85f3030e {
+label=<<B>Локальне робоче місце фахівця</B><BR/><FONT POINT-SIZE="9">Managed workstation</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_f5aaea181378 [label=<<B>Кабінет медичного працівника</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Web application]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+}
+subgraph cluster_n_f22163f645e5 {
+label=<<B>Пристрої та сенсори закладу</B><BR/><FONT POINT-SIZE="9">Medical devices</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_9cdf01ac3bb9 [label=<<B>Медичні пристрої та сенсори</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+}
+subgraph cluster_n_a3b1e79274f8 {
+label=<<B>Локальний пристрій пацієнта</B><BR/><FONT POINT-SIZE="9">Browser / mobile</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_6331821aef8b [label=<<B>Застосунок пацієнта</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · PWA / mobile / web, WebRTC, Web Speech APIs]</FONT>>, shape=box, style="rounded,filled", fillcolor="#0B7285", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+}
+subgraph cluster_n_921046e701df {
+label=<<B>Захищений канал до центрального контуру</B><BR/><FONT POINT-SIZE="9">VPN / mTLS</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_87987ae10b63 [label=<<B>VPN-шлюз</B><BR/><FONT POINT-SIZE="8">[Інфраструктура · WireGuard/IPsec/mTLS]</FONT>>, shape=hexagon, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+}
+subgraph cluster_n_23e6f42cf277 {
+label=<<B>Edge-сервер закладу</B><BR/><FONT POINT-SIZE="9">Hardened Linux / lightweight Kubernetes</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_1a6102f335df [label=<<B>Реєстр алгоритмів</B><BR/><FONT POINT-SIZE="8">[Сховище даних · Versioned registry]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_61620f884dbc [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Audit and observability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_5c734a952b57 [label=<<B>Незмінне сховище аудиту</B><BR/><FONT POINT-SIZE="8">[Сховище даних · WORM / append-only storage]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_60039a9e6960 [label=<<B>Кеш і короткоживучий стан</B><BR/><FONT POINT-SIZE="8">[Сховище даних · In-memory data store]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_7f5c338bff1d [label=<<B>Клінічне сховище</B><BR/><FONT POINT-SIZE="8">[Сховище даних · FHIR-oriented clinical repository]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_8859c56998db [label=<<B>Шина доменних подій</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Event broker]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#C05621", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_d4270b1c9f8a [label=<<B>API-шлюз і BFF</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Reverse proxy / API gateway]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_d87f53f5354b [label=<<B>Сервіс ідентичності, доступу<BR/>та згод</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · OIDC, RBAC/ABAC, consent service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_6f33eec9d0b2 [label=<<B>Інтеграційний шлюз</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · FHIR/DICOM/REST integration service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#3B5BDB", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_570a2cfbed5e [label=<<B>Оркестратор взаємодії</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Application service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_1439eaca7fa2 [label=<<B>Сервіс мультимодальних<BR/>вимірювань</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Signal and media processing]</FONT>>, shape=box, style="rounded,filled", fillcolor="#0F766E", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_f375850a4414 [label=<<B>Захищене об&#x27;єктне сховище</B><BR/><FONT POINT-SIZE="8">[Сховище даних · Encrypted object storage]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#FFE3E3", fontcolor="#5C1A1A", color="#486581", penwidth=1.5];
+n_ebfd785c9a16 [label=<<B>Операційна база даних</B><BR/><FONT POINT-SIZE="8">[Сховище даних · Relational database]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_407895319ad3 [label=<<B>Детермінований рушій<BR/>сценаріїв</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Rules engine / finite-state machine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_8e2769014f6a [label=<<B>Сервіс завдань, нагадувань і<BR/>ескалацій</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Workflow scheduler]</FONT>>, shape=box, style="rounded,filled", fillcolor="#B7791F", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_c53d40029b76 [label=<<B>Зашифрована черга<BR/>синхронізації</B><BR/><FONT POINT-SIZE="8">[Інфраструктура · Durable queue]</FONT>>, shape=hexagon, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+}
+n_6f33eec9d0b2 -> n_c53d40029b76 [label=<Передає підписані пакети<BR/>синхронізації>];
+n_c53d40029b76 -> n_87987ae10b63 [label=<Передає накопичені пакети<BR/>після відновлення зв&#x27;язку>];
+n_6331821aef8b -> n_d4270b1c9f8a [label=<Викликає захищене<BR/>пацієнтське API>];
+n_f5aaea181378 -> n_d4270b1c9f8a [label=<Викликає захищене клінічне<BR/>API>];
+n_d4270b1c9f8a -> n_d87f53f5354b [label=<Перевіряє сесію,<BR/>повноваження та згоду>];
+n_d4270b1c9f8a -> n_570a2cfbed5e [label=<Передає запити діалогової<BR/>взаємодії>];
+n_d4270b1c9f8a -> n_407895319ad3 [label=<Передає типізовані команди<BR/>виконання сценарію>];
+n_d4270b1c9f8a -> n_1439eaca7fa2 [label=<Передає метадані та<BR/>керовані потоки вимірювань>];
+n_d4270b1c9f8a -> n_8e2769014f6a [label=<Передає команди щодо<BR/>завдань, нагадувань і<BR/>візитів>];
+n_d4270b1c9f8a -> n_6f33eec9d0b2 [label=<Передає контрольовані<BR/>інтеграційні команди>];
+n_d4270b1c9f8a -> n_61620f884dbc [label=<Реєструє доступ і<BR/>результат оброблення<BR/>запиту>];
+n_d87f53f5354b -> n_ebfd785c9a16 [label=<Зберігає технічний стан<BR/>сесій і політик доступу>];
+n_d87f53f5354b -> n_7f5c338bff1d [label=<Зберігає версійовані<BR/>записи згод і відкликань>];
+n_d87f53f5354b -> n_61620f884dbc [label=<Реєструє рішення<BR/>авторизації та зміни згод>];
+n_570a2cfbed5e -> n_407895319ad3 [label=<Отримує детермінований<BR/>наступний крок і статус<BR/>сценарію>];
+n_570a2cfbed5e -> n_7f5c338bff1d [label=<Читає мінімальний<BR/>клінічний контекст і<BR/>зберігає структуровану<BR/>взаємодію>];
+n_570a2cfbed5e -> n_ebfd785c9a16 [label=<Зберігає життєвий цикл<BR/>сесії та незавершені дії>];
+n_570a2cfbed5e -> n_60039a9e6960 [label=<Зберігає короткоживучий<BR/>контекст і блокування>];
+n_570a2cfbed5e -> n_8e2769014f6a [label=<Створює завдання<BR/>продовження, повторного<BR/>контакту або візиту>];
+n_570a2cfbed5e -> n_8859c56998db [label=<Публікує події сесії та<BR/>взаємодії>];
+n_570a2cfbed5e -> n_61620f884dbc [label=<Реєструє походження<BR/>сформованої репліки й<BR/>виконаного кроку>];
+n_407895319ad3 -> n_1a6102f335df [label=<Завантажує підписану<BR/>опубліковану версію<BR/>визначення>];
+n_407895319ad3 -> n_7f5c338bff1d [label=<Читає та записує<BR/>відповіді, бали, ознаки й<BR/>структурований результат>];
+n_407895319ad3 -> n_1439eaca7fa2 [label=<Запитує передбачене<BR/>алгоритмом вимірювання>];
+n_407895319ad3 -> n_8e2769014f6a [label=<Створює контрольні<BR/>завдання та строки реакції>];
+n_407895319ad3 -> n_8859c56998db [label=<Публікує події результату,<BR/>прапорця, паузи та<BR/>завершення>];
+n_407895319ad3 -> n_61620f884dbc [label=<Фіксує версію, введення,<BR/>правило та результат<BR/>обчислення>];
+n_1439eaca7fa2 -> n_9cdf01ac3bb9 [label=<Отримує сигнали, медіа й<BR/>технічні метадані>];
+n_1439eaca7fa2 -> n_f375850a4414 [label=<Зберігає зашифровані сирі<BR/>об&#x27;єкти та похідні<BR/>артефакти>];
+n_1439eaca7fa2 -> n_7f5c338bff1d [label=<Зберігає нормалізовані<BR/>показники, якість і версію<BR/>аналізатора>];
+n_1439eaca7fa2 -> n_8859c56998db [label=<Публікує подію готовності<BR/>або непридатності<BR/>вимірювання>];
+n_1439eaca7fa2 -> n_61620f884dbc [label=<Реєструє ланцюг оброблення<BR/>та параметри моделі>];
+n_8e2769014f6a -> n_6f33eec9d0b2 [label=<Передає нагадування, події<BR/>календаря, телемедичні<BR/>сеанси та ескалації>];
+n_8e2769014f6a -> n_ebfd785c9a16 [label=<Зберігає завдання, строки,<BR/>повтори та ідемпотентні<BR/>ключі>];
+n_8e2769014f6a -> n_8859c56998db [label=<Публікує події виконання,<BR/>прострочення та ескалації>];
+n_8e2769014f6a -> n_61620f884dbc [label=<Реєструє створення,<BR/>доставку та результат<BR/>завдання>];
+n_6f33eec9d0b2 -> n_7f5c338bff1d [label=<Читає або записує<BR/>нормалізовані інтеграційні<BR/>дані>];
+n_6f33eec9d0b2 -> n_8859c56998db [label=<Публікує статуси<BR/>інтеграцій та помилки<BR/>доставки>];
+n_6f33eec9d0b2 -> n_61620f884dbc [label=<Реєструє мету, згоду,<BR/>склад даних і зовнішній<BR/>результат>];
+n_8859c56998db -> n_8e2769014f6a [label=<Доставляє події для<BR/>створення або оновлення<BR/>завдань>];
+n_8859c56998db -> n_61620f884dbc [label=<Доставляє доменні події<BR/>для незмінного журналу>];
+n_61620f884dbc -> n_5c734a952b57 [label=<Записує незмінні події та<BR/>контрольні суми>];
+}

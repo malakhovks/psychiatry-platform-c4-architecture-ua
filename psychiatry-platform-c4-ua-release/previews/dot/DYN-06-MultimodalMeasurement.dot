@@ -1,0 +1,47 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.25", ranksep="0.30", fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded,filled", fillcolor="#F4F7FA", color="#486581", margin="0.16,0.10"];
+edge [color="#7B8794", penwidth=1.2, arrowsize=0.7];
+label=<<B>DYN.06 — Мультимодальне вимірювання та контроль якості</B><BR/><FONT POINT-SIZE="11">Контрольований конвеєр ЕКГ, голосу, відео та медичних зображень.</FONT>>;
+{ rank=same;
+p_n_fd9938cf1df8 [label=<<B>Медичні пристрої та<BR/>сенсори</B>>, fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", shape=box];
+p_n_27b1c436e655 [label=<<B>Шлюз пристроїв</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_38ba5dcbb7df [label=<<B>Контроль якості</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_ece798a72db0 [label=<<B>Попереднє оброблення<BR/>сигналів</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_ad554367e5af [label=<<B>Аналізатор ЕКГ /<BR/>Мінесотське кодування</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_3985a6ec34a9 [label=<<B>Аналізатор голосу</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_0be81a6d58b7 [label=<<B>Аналізатор відео</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_582e6098d8f8 [label=<<B>Аналізатор медичних<BR/>зображень</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_c8628bd287e4 [label=<<B>Об&#x27;єднання ознак</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_45a720378876 [label=<<B>Нормалізатор<BR/>результату</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_40b119007c9f [label=<<B>Клінічне сховище</B>>, fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", shape=box];
+p_n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B>>, fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", shape=box];
+}
+step_01 [label=< <B>1.</B> Медичні пристрої та сенсори → Шлюз пристроїв<BR/><FONT POINT-SIZE="10">Передає дозволений сигнал і технічні метадані</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 [label=< <B>2.</B> Шлюз пристроїв → Контроль якості<BR/><FONT POINT-SIZE="10">Передає потік для перевірки якості</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_01 -> step_02;
+step_03 [label=< <B>3.</B> Контроль якості → Попереднє оброблення<BR/>сигналів<BR/><FONT POINT-SIZE="10">Допускає придатні дані до оброблення</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 -> step_03;
+step_04 [label=< <B>4.</B> Попереднє оброблення<BR/>сигналів → Аналізатор ЕКГ / Мінесотське<BR/>кодування<BR/><FONT POINT-SIZE="10">Передає ЕКГ для кодування й виділення ознак</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_03 -> step_04;
+step_05 [label=< <B>5.</B> Попереднє оброблення<BR/>сигналів → Аналізатор голосу<BR/><FONT POINT-SIZE="10">Передає аудіо для дозволеного аналізу</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_04 -> step_05;
+step_06 [label=< <B>6.</B> Попереднє оброблення<BR/>сигналів → Аналізатор відео<BR/><FONT POINT-SIZE="10">Передає відео для дозволеного аналізу</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_05 -> step_06;
+step_07 [label=< <B>7.</B> Попереднє оброблення<BR/>сигналів → Аналізатор медичних<BR/>зображень<BR/><FONT POINT-SIZE="10">Передає підтримуване медичне зображення</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_06 -> step_07;
+step_08 [label=< <B>8.</B> Аналізатор ЕКГ / Мінесотське<BR/>кодування → Об&#x27;єднання ознак<BR/><FONT POINT-SIZE="10">Додає коди й ознаки ЕКГ</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_07 -> step_08;
+step_09 [label=< <B>9.</B> Аналізатор голосу → Об&#x27;єднання ознак<BR/><FONT POINT-SIZE="10">Додає голосові ознаки</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_08 -> step_09;
+step_10 [label=< <B>10.</B> Аналізатор відео → Об&#x27;єднання ознак<BR/><FONT POINT-SIZE="10">Додає відеоознаки</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_09 -> step_10;
+step_11 [label=< <B>11.</B> Аналізатор медичних<BR/>зображень → Об&#x27;єднання ознак<BR/><FONT POINT-SIZE="10">Додає зображувальні ознаки</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_10 -> step_11;
+step_12 [label=< <B>12.</B> Об&#x27;єднання ознак → Нормалізатор результату<BR/><FONT POINT-SIZE="10">Формує узгоджений результат із внеском модальностей</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_11 -> step_12;
+step_13 [label=< <B>13.</B> Нормалізатор результату → Клінічне сховище<BR/><FONT POINT-SIZE="10">Зберігає показники, якість і версію аналізатора</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_12 -> step_13;
+step_14 [label=< <B>14.</B> Нормалізатор результату → Сервіс аудиту та<BR/>спостережуваності<BR/><FONT POINT-SIZE="10">Фіксує ланцюг оброблення</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_13 -> step_14;
+}

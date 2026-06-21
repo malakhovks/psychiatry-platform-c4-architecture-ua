@@ -1,0 +1,49 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.07 — Компоненти детермінованого рушія сценаріїв</B><BR/><FONT POINT-SIZE="12">Компоненти універсального детермінованого виконання клінічного сценарію.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Детермінований рушій сценаріїв</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_0fca791e572f [label=<<B>Валідатор відповіді</B><BR/><FONT POINT-SIZE="10">[Компонент · Validation service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_ed8ce554b27d [label=<<B>Оцінювач переходів</B><BR/><FONT POINT-SIZE="10">[Компонент · Expression engine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_a2ddeaf00067 [label=<<B>Завантажувач визначення</B><BR/><FONT POINT-SIZE="10">[Компонент · Registry client]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_f441efa4a724 [label=<<B>Формувач результату</B><BR/><FONT POINT-SIZE="10">[Компонент · Mapping service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_8a43ae9e62b0 [label=<<B>Фіксація походження</B><BR/><FONT POINT-SIZE="10">[Компонент · Provenance service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_26bad87451f0 [label=<<B>Оцінювач червоних прапорців</B><BR/><FONT POINT-SIZE="10">[Компонент · Rules engine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_cceecca00082 [label=<<B>Валідатор визначення</B><BR/><FONT POINT-SIZE="10">[Компонент · JSON Schema validation]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_85473b992a75 [label=<<B>Калькулятор балів</B><BR/><FONT POINT-SIZE="10">[Компонент · Deterministic calculator]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_7d0ed53f62c1 [label=<<B>Інтерпретатор станів</B><BR/><FONT POINT-SIZE="10">[Компонент · Finite-state machine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_5a67c5f4b68e [label=<<B>Селектор наступного кроку</B><BR/><FONT POINT-SIZE="10">[Компонент · Rules engine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_ace1c56edb4b [label=<<B>Реєстр алгоритмів</B><BR/><FONT POINT-SIZE="10">[Сховище даних · Versioned registry]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B><BR/><FONT POINT-SIZE="10">[Контейнер · Audit and observability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_c210e7db8afd [label=<<B>Сервіс підтримки клінічних<BR/>рішень</B><BR/><FONT POINT-SIZE="10">[Контейнер · Clinical decision support service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_40b119007c9f [label=<<B>Клінічне сховище</B><BR/><FONT POINT-SIZE="10">[Сховище даних · FHIR-oriented clinical repository]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_f9075d486a51 [label=<<B>Оркестратор взаємодії</B><BR/><FONT POINT-SIZE="10">[Контейнер · Application service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_a57f04482dc5 [label=<<B>Сервіс мультимодальних<BR/>вимірювань</B><BR/><FONT POINT-SIZE="10">[Контейнер · Signal and media processing]</FONT>>, shape=box, style="rounded,filled", fillcolor="#0F766E", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_eb4c5110ae64 [label=<<B>Сервіс завдань, нагадувань і<BR/>ескалацій</B><BR/><FONT POINT-SIZE="10">[Контейнер · Workflow scheduler]</FONT>>, shape=box, style="rounded,filled", fillcolor="#B7791F", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_f9075d486a51 -> n_40b119007c9f [ label=<Читає мінімальний клінічний контекст і<BR/>зберігає структуровану взаємодію>];
+n_f9075d486a51 -> n_eb4c5110ae64 [ label=<Створює завдання продовження,<BR/>повторного контакту або візиту>];
+n_f9075d486a51 -> n_5f5685eeff97 [ label=<Реєструє походження сформованої<BR/>репліки й виконаного кроку>];
+n_c210e7db8afd -> n_40b119007c9f [ label=<Читає результати й зберігає проєкти та<BR/>підтверджені траєкторії>];
+n_c210e7db8afd -> n_eb4c5110ae64 [ label=<Передає погоджений або безпечний план<BR/>супроводу>];
+n_c210e7db8afd -> n_5f5685eeff97 [ label=<Реєструє правила, джерела, пояснення<BR/>та клінічне підтвердження>];
+n_a57f04482dc5 -> n_40b119007c9f [ label=<Зберігає нормалізовані показники,<BR/>якість і версію аналізатора>];
+n_a57f04482dc5 -> n_5f5685eeff97 [ label=<Реєструє ланцюг оброблення та<BR/>параметри моделі>];
+n_eb4c5110ae64 -> n_5f5685eeff97 [ label=<Реєструє створення, доставку та<BR/>результат завдання>];
+n_a2ddeaf00067 -> n_ace1c56edb4b [ label=<Отримує закріплену версію визначення>];
+n_a2ddeaf00067 -> n_cceecca00082 [ label=<Передає визначення на перевірку<BR/>підпису й схеми>];
+n_cceecca00082 -> n_7d0ed53f62c1 [ label=<Активує лише валідне визначення>];
+n_7d0ed53f62c1 -> n_5a67c5f4b68e [ label=<Запитує наступний допустимий крок>];
+n_0fca791e572f -> n_7d0ed53f62c1 [ label=<Передає типізовану валідовану<BR/>відповідь>];
+n_5a67c5f4b68e -> n_ed8ce554b27d [ label=<Перевіряє умови переходів>];
+n_ed8ce554b27d -> n_85473b992a75 [ label=<Передає релевантні відповіді для<BR/>обчислення>];
+n_85473b992a75 -> n_26bad87451f0 [ label=<Передає бали та окремі критичні<BR/>відповіді>];
+n_26bad87451f0 -> n_f441efa4a724 [ label=<Передає прапорці, пріоритет і<BR/>пояснення>];
+n_f441efa4a724 -> n_8a43ae9e62b0 [ label=<Передає структурований результат>];
+n_8a43ae9e62b0 -> n_40b119007c9f [ label=<Зберігає результат і походження>];
+n_8a43ae9e62b0 -> n_5f5685eeff97 [ label=<Фіксує відтворюваний ланцюг виконання>];
+n_f9075d486a51 -> n_0fca791e572f [ label=<Передає типізовану відповідь до<BR/>компонента валідації>];
+n_f441efa4a724 -> n_c210e7db8afd [ label=<Передає структурований результат до<BR/>сервісу підтримки рішень>];
+}

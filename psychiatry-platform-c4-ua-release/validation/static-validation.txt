@@ -1,0 +1,17 @@
+1/5 Формування однофайлового workspace...
+2/5 Статична узгодженість Structurizr DSL...
+Workspace: workspace-single-file.dsl
+Known identifiers: 424
+Static relationships: 283
+View keys: 41
+Static consistency checks passed.
+3/5 Перевірка JSON та YAML...
+OK JSON: schemas/algorithm-definition.schema.json
+OK JSON: diagram-catalog.json
+OK YAML: examples/algorithm-catalog.yaml
+OK YAML: examples/algorithm-template.yaml
+OK YAML: examples/test-case-template.yaml
+4/5 Перевірка графічних подань і розміщення тексту...
+OK previews: 41 PNG, 41 SVG
+OK: 75 текстових блоків перевірено. Усі написи розміщено всередині призначених фігур або текстових областей.
+5/5 Офіційну перевірку Structurizr пропущено (--static-only).

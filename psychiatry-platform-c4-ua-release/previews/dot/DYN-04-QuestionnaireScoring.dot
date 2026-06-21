@@ -1,0 +1,47 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.25", ranksep="0.30", fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded,filled", fillcolor="#F4F7FA", color="#486581", margin="0.16,0.10"];
+edge [color="#7B8794", penwidth=1.2, arrowsize=0.7];
+label=<<B>DYN.04 — Опитувальник, розгалуження та обчислення балів</B><BR/><FONT POINT-SIZE="11">Внутрішній детермінований процес виконання опитувальника, розгалуження, оцінювання та<BR/>формування результату.</FONT>>;
+{ rank=same;
+p_n_a2ddeaf00067 [label=<<B>Завантажувач<BR/>визначення</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_ace1c56edb4b [label=<<B>Реєстр алгоритмів</B>>, fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", shape=box];
+p_n_cceecca00082 [label=<<B>Валідатор визначення</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_7d0ed53f62c1 [label=<<B>Інтерпретатор станів</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_0fca791e572f [label=<<B>Валідатор відповіді</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_5a67c5f4b68e [label=<<B>Селектор наступного<BR/>кроку</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_ed8ce554b27d [label=<<B>Оцінювач переходів</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_85473b992a75 [label=<<B>Калькулятор балів</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_26bad87451f0 [label=<<B>Оцінювач червоних<BR/>прапорців</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_f441efa4a724 [label=<<B>Формувач результату</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_8a43ae9e62b0 [label=<<B>Фіксація походження</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_c210e7db8afd [label=<<B>Сервіс підтримки<BR/>клінічних рішень</B>>, fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_40b119007c9f [label=<<B>Клінічне сховище</B>>, fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", shape=box];
+p_n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B>>, fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", shape=box];
+}
+step_01 [label=< <B>1.</B> Завантажувач визначення → Реєстр алгоритмів<BR/><FONT POINT-SIZE="10">Отримує підписану версію визначення</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 [label=< <B>2.</B> Завантажувач визначення → Валідатор визначення<BR/><FONT POINT-SIZE="10">Передає визначення на повторну перевірку</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_01 -> step_02;
+step_03 [label=< <B>3.</B> Валідатор визначення → Інтерпретатор станів<BR/><FONT POINT-SIZE="10">Активує валідний граф станів</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 -> step_03;
+step_04 [label=< <B>4.</B> Валідатор відповіді → Інтерпретатор станів<BR/><FONT POINT-SIZE="10">Передає типізовану відповідь</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_03 -> step_04;
+step_05 [label=< <B>5.</B> Інтерпретатор станів → Селектор наступного кроку<BR/><FONT POINT-SIZE="10">Запитує наступний допустимий крок</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_04 -> step_05;
+step_06 [label=< <B>6.</B> Селектор наступного кроку → Оцінювач переходів<BR/><FONT POINT-SIZE="10">Перевіряє умови переходу</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_05 -> step_06;
+step_07 [label=< <B>7.</B> Оцінювач переходів → Калькулятор балів<BR/><FONT POINT-SIZE="10">Передає релевантні відповіді</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_06 -> step_07;
+step_08 [label=< <B>8.</B> Калькулятор балів → Оцінювач червоних прапорців<BR/><FONT POINT-SIZE="10">Обчислює бали та передає критичні ознаки</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_07 -> step_08;
+step_09 [label=< <B>9.</B> Оцінювач червоних прапорців → Формувач результату<BR/><FONT POINT-SIZE="10">Додає прапорці й пріоритет</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_08 -> step_09;
+step_10 [label=< <B>10.</B> Формувач результату → Фіксація походження<BR/><FONT POINT-SIZE="10">Формує структурований результат</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_09 -> step_10;
+step_11 [label=< <B>11.</B> Формувач результату → Сервіс підтримки клінічних<BR/>рішень<BR/><FONT POINT-SIZE="10">Передає результат до підтримки клінічних рішень</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_10 -> step_11;
+step_12 [label=< <B>12.</B> Фіксація походження → Клінічне сховище<BR/><FONT POINT-SIZE="10">Зберігає результат і відтворюване походження</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_11 -> step_12;
+step_13 [label=< <B>13.</B> Фіксація походження → Сервіс аудиту та<BR/>спостережуваності<BR/><FONT POINT-SIZE="10">Реєструє доказ виконання</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_12 -> step_13;
+}

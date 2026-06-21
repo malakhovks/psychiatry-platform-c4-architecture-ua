@@ -1,0 +1,29 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.25", ranksep="0.30", fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded,filled", fillcolor="#F4F7FA", color="#486581", margin="0.16,0.10"];
+edge [color="#7B8794", penwidth=1.2, arrowsize=0.7];
+label=<<B>DYN.08 — Клінічний перегляд і траєкторія пацієнта</B><BR/><FONT POINT-SIZE="11">Огляд медичним працівником, пояснення, коригування та підтвердження траєкторії.</FONT>>;
+{ rank=same;
+p_n_f465f9f86773 [label=<<B>Лікар-психіатр</B>>, fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_a8676803ace0 [label=<<B>Кабінет медичного<BR/>працівника</B>>, fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_384146de0c5d [label=<<B>API-шлюз і BFF</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_c210e7db8afd [label=<<B>Сервіс підтримки<BR/>клінічних рішень</B>>, fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_0a99d320f3b9 [label=<<B>Репозиторій клінічних<BR/>протоколів і знань</B>>, fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", shape=box];
+p_n_40b119007c9f [label=<<B>Клінічне сховище</B>>, fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", shape=box];
+p_n_eb4c5110ae64 [label=<<B>Сервіс завдань,<BR/>нагадувань і ескалацій</B>>, fillcolor="#B7791F", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B>>, fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", shape=box];
+}
+step_01 [label=< <B>1.</B> Лікар-психіатр → Кабінет медичного працівника<BR/><FONT POINT-SIZE="10">Відкриває випадок і часову шкалу</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 [label=< <B>2.</B> Кабінет медичного працівника → API-шлюз і BFF<BR/><FONT POINT-SIZE="10">Запитує результати, прапорці та джерела</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_01 -> step_02;
+step_03 [label=< <B>3.</B> API-шлюз і BFF → Сервіс підтримки клінічних<BR/>рішень<BR/><FONT POINT-SIZE="10">Отримує проєкт узагальнення та пояснення</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 -> step_03;
+step_04 [label=< <B>4.</B> Сервіс підтримки клінічних<BR/>рішень → Репозиторій клінічних<BR/>протоколів і знань<BR/><FONT POINT-SIZE="10">Перевіряє релевантні протоколи</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_03 -> step_04;
+step_05 [label=< <B>5.</B> Сервіс підтримки клінічних<BR/>рішень → Клінічне сховище<BR/><FONT POINT-SIZE="10">Зберігає коригування та підтверджене рішення</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_04 -> step_05;
+step_06 [label=< <B>6.</B> Сервіс підтримки клінічних<BR/>рішень → Сервіс завдань, нагадувань і<BR/>ескалацій<BR/><FONT POINT-SIZE="10">Створює погоджені контрольні точки</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_05 -> step_06;
+step_07 [label=< <B>7.</B> Сервіс підтримки клінічних<BR/>рішень → Сервіс аудиту та<BR/>спостережуваності<BR/><FONT POINT-SIZE="10">Фіксує фахівця, обґрунтування й версію джерел</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_06 -> step_07;
+}

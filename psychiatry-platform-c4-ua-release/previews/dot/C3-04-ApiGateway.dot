@@ -1,0 +1,49 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.04 — Компоненти API-шлюзу</B><BR/><FONT POINT-SIZE="12">Компоненти контрольованого входу, перевірки токенів, квот, контрактів і маршрутизації.</FONT>>;
+subgraph cluster_scope {
+label=<<B>API-шлюз і BFF</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_41f799bbfc63 [label=<<B>Маршрутизатор API</B><BR/><FONT POINT-SIZE="10">[Компонент · API routing]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_a2945bc79c18 [label=<<B>Перевірка автентифікації</B><BR/><FONT POINT-SIZE="10">[Компонент · OIDC middleware]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_ca3082d69c27 [label=<<B>Обмеження навантаження</B><BR/><FONT POINT-SIZE="10">[Компонент · Rate limiting]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_347e5595e1b1 [label=<<B>Контроль контрактів</B><BR/><FONT POINT-SIZE="10">[Компонент · OpenAPI / JSON Schema]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_d23827c92006 [label=<<B>Студія алгоритмів і<BR/>протоколів</B><BR/><FONT POINT-SIZE="10">[Контейнер · Web application]</FONT>>, shape=box, style="rounded,filled", fillcolor="#8A5A00", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B><BR/><FONT POINT-SIZE="10">[Контейнер · Audit and observability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_c210e7db8afd [label=<<B>Сервіс підтримки клінічних<BR/>рішень</B><BR/><FONT POINT-SIZE="10">[Контейнер · Clinical decision support service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_a8676803ace0 [label=<<B>Кабінет медичного працівника</B><BR/><FONT POINT-SIZE="10">[Контейнер · Web application]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_dcb3f876e224 [label=<<B>Сервіс ідентичності, доступу<BR/>та згод</B><BR/><FONT POINT-SIZE="10">[Контейнер · OIDC, RBAC/ABAC, consent service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_b10c10dbc143 [label=<<B>Інтеграційний шлюз</B><BR/><FONT POINT-SIZE="10">[Контейнер · FHIR/DICOM/REST integration service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#3B5BDB", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_f9075d486a51 [label=<<B>Оркестратор взаємодії</B><BR/><FONT POINT-SIZE="10">[Контейнер · Application service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_a57f04482dc5 [label=<<B>Сервіс мультимодальних<BR/>вимірювань</B><BR/><FONT POINT-SIZE="10">[Контейнер · Signal and media processing]</FONT>>, shape=box, style="rounded,filled", fillcolor="#0F766E", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_8a923be70a11 [label=<<B>Застосунок пацієнта</B><BR/><FONT POINT-SIZE="10">[Контейнер · PWA / mobile / web, WebRTC, Web Speech APIs]</FONT>>, shape=box, style="rounded,filled", fillcolor="#0B7285", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_78e6a86e3609 [label=<<B>Детермінований рушій<BR/>сценаріїв</B><BR/><FONT POINT-SIZE="10">[Контейнер · Rules engine / finite-state machine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_eb4c5110ae64 [label=<<B>Сервіс завдань, нагадувань і<BR/>ескалацій</B><BR/><FONT POINT-SIZE="10">[Контейнер · Workflow scheduler]</FONT>>, shape=box, style="rounded,filled", fillcolor="#B7791F", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_dcb3f876e224 -> n_5f5685eeff97 [ label=<Реєструє рішення авторизації та зміни<BR/>згод>];
+n_f9075d486a51 -> n_78e6a86e3609 [ label=<Отримує детермінований наступний крок<BR/>і статус сценарію>];
+n_f9075d486a51 -> n_eb4c5110ae64 [ label=<Створює завдання продовження,<BR/>повторного контакту або візиту>];
+n_f9075d486a51 -> n_5f5685eeff97 [ label=<Реєструє походження сформованої<BR/>репліки й виконаного кроку>];
+n_78e6a86e3609 -> n_c210e7db8afd [ label=<Передає завершений або проміжний<BR/>клінічний результат для агрегації>];
+n_78e6a86e3609 -> n_a57f04482dc5 [ label=<Запитує передбачене алгоритмом<BR/>вимірювання>];
+n_78e6a86e3609 -> n_eb4c5110ae64 [ label=<Створює контрольні завдання та строки<BR/>реакції>];
+n_78e6a86e3609 -> n_5f5685eeff97 [ label=<Фіксує версію, введення, правило та<BR/>результат обчислення>];
+n_c210e7db8afd -> n_eb4c5110ae64 [ label=<Передає погоджений або безпечний план<BR/>супроводу>];
+n_c210e7db8afd -> n_5f5685eeff97 [ label=<Реєструє правила, джерела, пояснення<BR/>та клінічне підтвердження>];
+n_a57f04482dc5 -> n_5f5685eeff97 [ label=<Реєструє ланцюг оброблення та<BR/>параметри моделі>];
+n_eb4c5110ae64 -> n_b10c10dbc143 [ label=<Передає нагадування, події календаря,<BR/>телемедичні сеанси та ескалації>];
+n_eb4c5110ae64 -> n_5f5685eeff97 [ label=<Реєструє створення, доставку та<BR/>результат завдання>];
+n_b10c10dbc143 -> n_5f5685eeff97 [ label=<Реєструє мету, згоду, склад даних і<BR/>зовнішній результат>];
+n_d23827c92006 -> n_5f5685eeff97 [ label=<Реєструє зміни, перевірки, погодження<BR/>та випуски>];
+n_a2945bc79c18 -> n_dcb3f876e224 [ label=<Перевіряє токен і контекст доступу>];
+n_a2945bc79c18 -> n_ca3082d69c27 [ label=<Передає автентифікований запит>];
+n_ca3082d69c27 -> n_347e5595e1b1 [ label=<Передає запит у межах встановлених<BR/>квот>];
+n_347e5595e1b1 -> n_41f799bbfc63 [ label=<Передає валідований контракт>];
+n_41f799bbfc63 -> n_f9075d486a51 [ label=<Маршрутизує діалогові операції>];
+n_41f799bbfc63 -> n_78e6a86e3609 [ label=<Маршрутизує команди сценарію>];
+n_41f799bbfc63 -> n_c210e7db8afd [ label=<Маршрутизує клінічний перегляд>];
+n_41f799bbfc63 -> n_a57f04482dc5 [ label=<Маршрутизує вимірювання>];
+n_41f799bbfc63 -> n_eb4c5110ae64 [ label=<Маршрутизує завдання та нагадування>];
+n_41f799bbfc63 -> n_b10c10dbc143 [ label=<Маршрутизує зовнішній обмін>];
+}

@@ -1,0 +1,41 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.10 — Компоненти мультимодальних вимірювань</B><BR/><FONT POINT-SIZE="12">Компоненти приймання, контролю якості, аналізу та нормалізації мультимодальних вимірювань.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Сервіс мультимодальних вимірювань</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_27b1c436e655 [label=<<B>Шлюз пристроїв</B><BR/><FONT POINT-SIZE="10">[Компонент · Device adapters]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_ad554367e5af [label=<<B>Аналізатор ЕКГ / Мінесотське<BR/>кодування</B><BR/><FONT POINT-SIZE="10">[Компонент · ECG analysis]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_c8628bd287e4 [label=<<B>Об&#x27;єднання ознак</B><BR/><FONT POINT-SIZE="10">[Компонент · Multimodal fusion]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_582e6098d8f8 [label=<<B>Аналізатор медичних<BR/>зображень</B><BR/><FONT POINT-SIZE="10">[Компонент · Medical imaging AI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_45a720378876 [label=<<B>Нормалізатор результату</B><BR/><FONT POINT-SIZE="10">[Компонент · Clinical mapping]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_38ba5dcbb7df [label=<<B>Контроль якості</B><BR/><FONT POINT-SIZE="10">[Компонент · Quality rules]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_ece798a72db0 [label=<<B>Попереднє оброблення<BR/>сигналів</B><BR/><FONT POINT-SIZE="10">[Компонент · DSP pipeline]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_0be81a6d58b7 [label=<<B>Аналізатор відео</B><BR/><FONT POINT-SIZE="10">[Компонент · Computer vision]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_3985a6ec34a9 [label=<<B>Аналізатор голосу</B><BR/><FONT POINT-SIZE="10">[Компонент · Audio ML]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_fd9938cf1df8 [label=<<B>Медичні пристрої та сенсори</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_c3da19e3d57e [label=<<B>Реєстр і середовище моделей<BR/>ШІ</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6741D9", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B><BR/><FONT POINT-SIZE="10">[Контейнер · Audit and observability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_40b119007c9f [label=<<B>Клінічне сховище</B><BR/><FONT POINT-SIZE="10">[Сховище даних · FHIR-oriented clinical repository]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_f9fe6a00e3bb [label=<<B>Захищене об&#x27;єктне сховище</B><BR/><FONT POINT-SIZE="10">[Сховище даних · Encrypted object storage]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#FFE3E3", fontcolor="#5C1A1A", color="#486581", penwidth=1.5];
+n_78e6a86e3609 [label=<<B>Детермінований рушій<BR/>сценаріїв</B><BR/><FONT POINT-SIZE="10">[Контейнер · Rules engine / finite-state machine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_78e6a86e3609 -> n_40b119007c9f [ label=<Читає та записує відповіді, бали,<BR/>ознаки й структурований результат>];
+n_78e6a86e3609 -> n_5f5685eeff97 [ label=<Фіксує версію, введення, правило та<BR/>результат обчислення>];
+n_27b1c436e655 -> n_fd9938cf1df8 [ label=<Приймає сигнал і технічні метадані>];
+n_27b1c436e655 -> n_38ba5dcbb7df [ label=<Передає потік для контролю якості>];
+n_38ba5dcbb7df -> n_ece798a72db0 [ label=<Допускає придатний потік до оброблення>];
+n_ece798a72db0 -> n_ad554367e5af [ label=<Передає підготовлений ЕКГ-сигнал>];
+n_ece798a72db0 -> n_3985a6ec34a9 [ label=<Передає підготовлений аудіосигнал>];
+n_ece798a72db0 -> n_0be81a6d58b7 [ label=<Передає підготовлену<BR/>відеопослідовність>];
+n_ece798a72db0 -> n_582e6098d8f8 [ label=<Передає підтримуване медичне<BR/>зображення>];
+n_ad554367e5af -> n_c8628bd287e4 [ label=<Передає коди й ознаки ЕКГ>];
+n_3985a6ec34a9 -> n_c8628bd287e4 [ label=<Передає голосові ознаки>];
+n_0be81a6d58b7 -> n_c8628bd287e4 [ label=<Передає відеоознаки>];
+n_582e6098d8f8 -> n_c8628bd287e4 [ label=<Передає зображувальні ознаки>];
+n_c8628bd287e4 -> n_45a720378876 [ label=<Передає сумісні ознаки та внески<BR/>модальностей>];
+n_45a720378876 -> n_40b119007c9f [ label=<Зберігає нормалізований результат і<BR/>якість>];
+n_45a720378876 -> n_5f5685eeff97 [ label=<Фіксує версії моделей і ланцюг<BR/>перетворень>];
+n_fd9938cf1df8 -> n_27b1c436e655 [ label=<Передає дозволений сигнал і технічні<BR/>метадані>];
+}

@@ -1,0 +1,23 @@
+digraph G {
+graph [rankdir=LR, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C1.05 — Контекст формалізації та керування алгоритмами</B><BR/><FONT POINT-SIZE="12">Контекст життєвого циклу клінічних алгоритмів — від проєктного документа до перевіреної<BR/>опублікованої версії.</FONT>>;
+n_b30059fba026 [label=<<B>Репозиторій вихідних<BR/>алгоритмів</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_d6434351ba8f [label=<<B>Постачальник електронної<BR/>ідентичності</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_9c1b2838ecd8 [label=<<B>Клінічний методолог</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#8A5A00", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_3c72abbe626f [label=<<B>Платформа реалізації<BR/>психіатричних сценаріїв та<BR/>алгоритмів</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#0A6EBD", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_0a99d320f3b9 [label=<<B>Репозиторій клінічних<BR/>протоколів і знань</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_f465f9f86773 [label=<<B>Лікар-психіатр</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_487bf0f57271 [label=<<B>Психолог / психотерапевт</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_c7796133ac1d [label=<<B>Адміністратор платформи та<BR/>безпеки</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_09b340c80e8a [label=<<B>Сервіс термінологій</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_f465f9f86773 -> n_3c72abbe626f [ label=<Використовує для оцінювання ризику,<BR/>підтвердження висновків і керування<BR/>траєкторією>];
+n_487bf0f57271 -> n_3c72abbe626f [ label=<Використовує для психологічного<BR/>оцінювання та планування супроводу>];
+n_9c1b2838ecd8 -> n_3c72abbe626f [ label=<Формалізує, тестує, погоджує та<BR/>публікує алгоритми>];
+n_c7796133ac1d -> n_3c72abbe626f [ label=<Адмініструє доступ, аудит,<BR/>конфігурацію та спостережуваність>];
+n_3c72abbe626f -> n_d6434351ba8f [ label=<Делегує автентифікацію та перевірку<BR/>рівня довіри>];
+n_3c72abbe626f -> n_09b340c80e8a [ label=<Перевіряє та нормалізує клінічні коди>];
+n_3c72abbe626f -> n_0a99d320f3b9 [ label=<Отримує затверджені протоколи й<BR/>джерела знань>];
+n_3c72abbe626f -> n_b30059fba026 [ label=<Імпортує вихідні документи алгоритмів<BR/>у проєктному контурі>];
+}

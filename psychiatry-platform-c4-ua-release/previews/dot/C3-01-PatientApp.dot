@@ -1,0 +1,32 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.01 — Компоненти застосунку пацієнта</B><BR/><FONT POINT-SIZE="12">Компоненти пацієнтського застосунку та їхні точки взаємодії з платформою.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Застосунок пацієнта</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_449b11ff8ad7 [label=<<B>Модуль доступності</B><BR/><FONT POINT-SIZE="10">[Компонент · WCAG-oriented UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_9502f29f651e [label=<<B>Оболонка та навігація</B><BR/><FONT POINT-SIZE="10">[Компонент · Frontend framework]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_3011b78e5141 [label=<<B>Календар і нагадування</B><BR/><FONT POINT-SIZE="10">[Компонент · Calendar UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_705e9e8982f0 [label=<<B>Налаштування комунікації</B><BR/><FONT POINT-SIZE="10">[Компонент · Frontend module]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_5460f0858ced [label=<<B>Збір скарг і потреб</B><BR/><FONT POINT-SIZE="10">[Компонент · Form and dialogue UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_da5fe4a11af2 [label=<<B>Елемент кризової допомоги</B><BR/><FONT POINT-SIZE="10">[Компонент · Fail-safe UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_878111d3dce4 [label=<<B>Майстер вимірювань</B><BR/><FONT POINT-SIZE="10">[Компонент · Device integration UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_84e3cb58f008 [label=<<B>Захоплення голосу та відео</B><BR/><FONT POINT-SIZE="10">[Компонент · WebRTC / Media APIs]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_58b52d815b3a [label=<<B>Візуалізатор опитувальників</B><BR/><FONT POINT-SIZE="10">[Компонент · Schema-driven forms]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_288b2f41a61e [label=<<B>Підготовка до візиту</B><BR/><FONT POINT-SIZE="10">[Компонент · Frontend module]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_3145c0474e62 [label=<<B>Кризова / екстрена служба</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#C92A2A", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_b1b0b8de8a62 [label=<<B>Пацієнт</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#084C61", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_384146de0c5d [label=<<B>API-шлюз і BFF</B><BR/><FONT POINT-SIZE="10">[Контейнер · Reverse proxy / API gateway]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_8ef8376f7755 [label=<<B>Платформа телемедицини</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_9502f29f651e -> n_449b11ff8ad7 [ label=<Застосовує налаштування доступності>];
+n_9502f29f651e -> n_705e9e8982f0 [ label=<Застосовує підтверджений профіль<BR/>комунікації>];
+n_5460f0858ced -> n_384146de0c5d [ label=<Надсилає скарги й потреби як<BR/>типізований запит>];
+n_58b52d815b3a -> n_384146de0c5d [ label=<Отримує крок і надсилає валідовану<BR/>відповідь>];
+n_84e3cb58f008 -> n_384146de0c5d [ label=<Передає медіа за окремою згодою>];
+n_878111d3dce4 -> n_384146de0c5d [ label=<Керує запуском і повтором вимірювання>];
+n_3011b78e5141 -> n_384146de0c5d [ label=<Отримує завдання, нагадування й події>];
+n_288b2f41a61e -> n_384146de0c5d [ label=<Запитує підготовлений до візиту<BR/>підсумок>];
+n_da5fe4a11af2 -> n_384146de0c5d [ label=<Запускає незалежний кризовий маршрут>];
+}

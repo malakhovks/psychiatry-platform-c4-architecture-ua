@@ -1,0 +1,155 @@
+catalogVersion: "1.0"
+updatedAt: "2026-06-20T00:00:00Z"
+sourceRepository:
+  name: "Команда Психіатрії алгоритм"
+  role: "Проєктне джерело документів до формалізації та погодження"
+  importPolicy: "Точний текст, пороги, маршрути й ліцензійні умови перевіряються перед публікацією."
+
+profiles:
+  - profileId: "screening.phq9"
+    displayName: "Депресія — PHQ-9"
+    class: "screening"
+    universalFeatures:
+      - "questionnaire"
+      - "deterministic_scoring"
+      - "critical_item_rule"
+      - "outcome_categories"
+      - "clinical_routing"
+      - "follow_up"
+    mappingStatus: "to_map_from_approved_source_repository"
+    contentEmbedded: false
+
+  - profileId: "screening.gad7"
+    displayName: "Тривога — GAD-7"
+    class: "screening"
+    universalFeatures:
+      - "questionnaire"
+      - "deterministic_scoring"
+      - "outcome_categories"
+      - "clinical_routing"
+      - "follow_up"
+    mappingStatus: "to_map_from_approved_source_repository"
+    contentEmbedded: false
+
+  - profileId: "screening.pq16"
+    displayName: "Психотичні переживання — PQ-16"
+    class: "screening"
+    universalFeatures:
+      - "questionnaire"
+      - "conditional_distress_items"
+      - "deterministic_scoring"
+      - "red_flags"
+      - "clinical_review"
+    mappingStatus: "to_map_from_approved_source_repository"
+    contentEmbedded: false
+
+  - profileId: "screening.mdq"
+    displayName: "Маніакальні симптоми — MDQ"
+    class: "screening"
+    universalFeatures:
+      - "questionnaire"
+      - "multi-part_logic"
+      - "branching"
+      - "deterministic_classification"
+      - "clinical_review"
+    mappingStatus: "to_map_from_approved_source_repository"
+    contentEmbedded: false
+
+  - profileId: "cognitive.cfq"
+    displayName: "Когнітивні труднощі — CFQ"
+    class: "screening"
+    universalFeatures:
+      - "questionnaire"
+      - "deterministic_scoring"
+      - "trend_follow_up"
+      - "clinical_review"
+    mappingStatus: "to_map_from_approved_source_repository"
+    contentEmbedded: false
+
+  - profileId: "cognitive.moca-clinician"
+    displayName: "Когнітивне оцінювання — MoCA, контур медичного працівника"
+    class: "structured_interview"
+    universalFeatures:
+      - "clinician_led_steps"
+      - "task_items"
+      - "measurement_like_observations"
+      - "deterministic_scoring"
+      - "licensing_review"
+      - "clinical_confirmation"
+    mappingStatus: "to_map_from_approved_source_repository"
+    contentEmbedded: false
+
+  - profileId: "substance.audit-c"
+    displayName: "Вживання алкоголю — AUDIT-C"
+    class: "screening"
+    universalFeatures:
+      - "questionnaire"
+      - "deterministic_scoring"
+      - "threshold_by_profile"
+      - "brief_intervention_route"
+      - "follow_up"
+    mappingStatus: "to_map_from_approved_source_repository"
+    contentEmbedded: false
+
+  - profileId: "substance.dast"
+    displayName: "Вживання психоактивних речовин — DAST"
+    class: "screening"
+    universalFeatures:
+      - "questionnaire"
+      - "deterministic_scoring"
+      - "red_flags"
+      - "clinical_routing"
+      - "follow_up"
+    mappingStatus: "to_map_from_approved_source_repository"
+    contentEmbedded: false
+
+  - profileId: "assessment.mental-status"
+    displayName: "Структуроване оцінювання психічного статусу"
+    class: "mental_status_exam"
+    universalFeatures:
+      - "clinician_led_steps"
+      - "coded_and_free_text_facts"
+      - "structured_extraction_draft"
+      - "clinical_confirmation"
+      - "provenance"
+    mappingStatus: "architecture_profile_ready"
+    contentEmbedded: false
+
+  - profileId: "crisis.universal"
+    displayName: "Універсальний кризовий маршрут"
+    class: "crisis"
+    universalFeatures:
+      - "deterministic_red_flag"
+      - "patient_safety_message"
+      - "acknowledged_delivery"
+      - "fallback_route"
+      - "response_sla"
+      - "audit"
+    mappingStatus: "requires_local_institution_policy"
+    contentEmbedded: false
+
+  - profileId: "measurement.ecg-minnesota"
+    displayName: "ЕКГ та машинний проєкт Мінесотського кодування"
+    class: "measurement"
+    universalFeatures:
+      - "device_gateway"
+      - "quality_gate"
+      - "signal_preprocessing"
+      - "versioned_analyzer"
+      - "uncertainty"
+      - "clinical_confirmation"
+    mappingStatus: "requires_validated_measurement_profile"
+    contentEmbedded: false
+
+  - profileId: "measurement.voice-video"
+    displayName: "Аналіз голосу та відео"
+    class: "measurement"
+    universalFeatures:
+      - "separate_consent"
+      - "quality_gate"
+      - "versioned_features"
+      - "no_face_identification"
+      - "uncertainty"
+      - "clinical_confirmation"
+    mappingStatus: "requires_validated_measurement_profile"
+    contentEmbedded: false

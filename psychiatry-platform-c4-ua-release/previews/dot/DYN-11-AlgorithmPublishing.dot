@@ -1,0 +1,38 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.25", ranksep="0.30", fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded,filled", fillcolor="#F4F7FA", color="#486581", margin="0.16,0.10"];
+edge [color="#7B8794", penwidth=1.2, arrowsize=0.7];
+label=<<B>DYN.11 — Формалізація, тестування та публікація алгоритму</B><BR/><FONT POINT-SIZE="11">Перетворення вихідного документа на перевірену, погоджену та опубліковану версію<BR/>алгоритму.</FONT>>;
+{ rank=same;
+p_n_9c1b2838ecd8 [label=<<B>Клінічний методолог</B>>, fillcolor="#8A5A00", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_b4d64920ec8b [label=<<B>Імпортер вихідних<BR/>матеріалів</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_b30059fba026 [label=<<B>Репозиторій вихідних<BR/>алгоритмів</B>>, fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", shape=box];
+p_n_d1cce12dd4aa [label=<<B>Редактор визначення<BR/>алгоритму</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_7c012fa0049e [label=<<B>Клінічний і технічний<BR/>валідатор</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_d1038ddad4bb [label=<<B>Симулятор і тестові<BR/>набори</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_82e79b78f358 [label=<<B>Маршрут клінічного<BR/>погодження</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_2e07cf3754b4 [label=<<B>Керування версіями</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_22a2655265f6 [label=<<B>Публікатор і<BR/>відкликання</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_ace1c56edb4b [label=<<B>Реєстр алгоритмів</B>>, fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", shape=box];
+p_n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B>>, fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", shape=box];
+}
+step_01 [label=< <B>1.</B> Клінічний методолог → Імпортер вихідних матеріалів<BR/><FONT POINT-SIZE="10">Ініціює імпорт документа або створення чернетки</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 [label=< <B>2.</B> Імпортер вихідних матеріалів → Репозиторій вихідних<BR/>алгоритмів<BR/><FONT POINT-SIZE="10">Отримує вихідний документ і метадані</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_01 -> step_02;
+step_03 [label=< <B>3.</B> Імпортер вихідних матеріалів → Редактор визначення<BR/>алгоритму<BR/><FONT POINT-SIZE="10">Створює структуровану чернетку</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 -> step_03;
+step_04 [label=< <B>4.</B> Редактор визначення<BR/>алгоритму → Клінічний і технічний<BR/>валідатор<BR/><FONT POINT-SIZE="10">Передає правила, кроки та метадані на перевірку</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_03 -> step_04;
+step_05 [label=< <B>5.</B> Клінічний і технічний<BR/>валідатор → Симулятор і тестові набори<BR/><FONT POINT-SIZE="10">Допускає валідну версію до симуляції</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_04 -> step_05;
+step_06 [label=< <B>6.</B> Симулятор і тестові набори → Маршрут клінічного<BR/>погодження<BR/><FONT POINT-SIZE="10">Передає протокол тестів і відхилення</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_05 -> step_06;
+step_07 [label=< <B>7.</B> Маршрут клінічного<BR/>погодження → Керування версіями<BR/><FONT POINT-SIZE="10">Фіксує погоджену редакцію</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_06 -> step_07;
+step_08 [label=< <B>8.</B> Керування версіями → Публікатор і відкликання<BR/><FONT POINT-SIZE="10">Створює незмінний кандидат на випуск</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_07 -> step_08;
+step_09 [label=< <B>9.</B> Публікатор і відкликання → Реєстр алгоритмів<BR/><FONT POINT-SIZE="10">Атомарно публікує підписану версію</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_08 -> step_09;
+step_10 [label=< <B>10.</B> Публікатор і відкликання → Сервіс аудиту та<BR/>спостережуваності<BR/><FONT POINT-SIZE="10">Фіксує авторів, погодження, контрольну суму та дату чинності</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_09 -> step_10;
+}

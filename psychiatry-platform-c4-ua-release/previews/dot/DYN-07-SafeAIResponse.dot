@@ -1,0 +1,42 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.25", ranksep="0.30", fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded,filled", fillcolor="#F4F7FA", color="#486581", margin="0.16,0.10"];
+edge [color="#7B8794", penwidth=1.2, arrowsize=0.7];
+label=<<B>DYN.07 — Безпечне формування відповіді ШІ</B><BR/><FONT POINT-SIZE="11">Формування допоміжної ШІ-відповіді з мінімізацією даних, RAG, перевіркою структури та<BR/>контролем людиною.</FONT>>;
+{ rank=same;
+p_n_f9075d486a51 [label=<<B>Оркестратор взаємодії</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_0d0b5b8e203f [label=<<B>Менеджер шаблонів і<BR/>політик</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_5e8091b94410 [label=<<B>Пошук у базі знань</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_609849034d86 [label=<<B>База знань та індекс<BR/>пошуку</B>>, fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", shape=box];
+p_n_5cb9e4723669 [label=<<B>Клінічні та контентні<BR/>запобіжники</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_253c38667a70 [label=<<B>Маршрутизатор моделей</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_c3da19e3d57e [label=<<B>Реєстр і середовище<BR/>моделей ШІ</B>>, fillcolor="#6741D9", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_182578176bcb [label=<<B>Валідатор<BR/>структурованого виходу</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_4015bb97f100 [label=<<B>Компонувальник<BR/>відповіді</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_1655e04d57aa [label=<<B>Контроль людиною</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B>>, fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", shape=box];
+}
+step_01 [label=< <B>1.</B> Оркестратор взаємодії → Менеджер шаблонів і політик<BR/><FONT POINT-SIZE="10">Передає завдання, локаль і дозволений контекст</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 [label=< <B>2.</B> Менеджер шаблонів і політик → Пошук у базі знань<BR/><FONT POINT-SIZE="10">Запитує дозволені джерела</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_01 -> step_02;
+step_03 [label=< <B>3.</B> Пошук у базі знань → База знань та індекс пошуку<BR/><FONT POINT-SIZE="10">Отримує фрагменти з версією і посиланням</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 -> step_03;
+step_04 [label=< <B>4.</B> Менеджер шаблонів і політик → Клінічні та контентні<BR/>запобіжники<BR/><FONT POINT-SIZE="10">Застосовує клінічні та приватнісні обмеження</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_03 -> step_04;
+step_05 [label=< <B>5.</B> Клінічні та контентні<BR/>запобіжники → Маршрутизатор моделей<BR/><FONT POINT-SIZE="10">Дозволяє мінімізований запит</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_04 -> step_05;
+step_06 [label=< <B>6.</B> Пошук у базі знань → Маршрутизатор моделей<BR/><FONT POINT-SIZE="10">Передає дозволений контекст</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_05 -> step_06;
+step_07 [label=< <B>7.</B> Маршрутизатор моделей → Реєстр і середовище моделей<BR/>ШІ<BR/><FONT POINT-SIZE="10">Викликає обрану локальну або зовнішню модель</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_06 -> step_07;
+step_08 [label=< <B>8.</B> Маршрутизатор моделей → Валідатор структурованого<BR/>виходу<BR/><FONT POINT-SIZE="10">Передає відповідь на перевірку контракту</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_07 -> step_08;
+step_09 [label=< <B>9.</B> Валідатор структурованого<BR/>виходу → Клінічні та контентні<BR/>запобіжники<BR/><FONT POINT-SIZE="10">Виконує післягенераційний контроль</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_08 -> step_09;
+step_10 [label=< <B>10.</B> Клінічні та контентні<BR/>запобіжники → Компонувальник відповіді<BR/><FONT POINT-SIZE="10">Передає лише дозволений зміст</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_09 -> step_10;
+step_11 [label=< <B>11.</B> Компонувальник відповіді → Контроль людиною<BR/><FONT POINT-SIZE="10">Маркує клінічно значущий проєкт</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_10 -> step_11;
+step_12 [label=< <B>12.</B> Контроль людиною → Сервіс аудиту та<BR/>спостережуваності<BR/><FONT POINT-SIZE="10">Фіксує модель, шаблон, джерела й режим контролю</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_11 -> step_12;
+}

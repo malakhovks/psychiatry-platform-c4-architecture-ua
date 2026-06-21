@@ -1,0 +1,33 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.11 — Компоненти завдань, нагадувань та ескалацій</B><BR/><FONT POINT-SIZE="12">Компоненти планування завдань, нагадувань, SLA ескалації та надійних повторів.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Сервіс завдань, нагадувань і ескалацій</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_78a700e90551 [label=<<B>Контроль ескалацій</B><BR/><FONT POINT-SIZE="10">[Компонент · Escalation engine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_97b83196d6e1 [label=<<B>Диспетчер нагадувань</B><BR/><FONT POINT-SIZE="10">[Компонент · Notification service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_64d349359173 [label=<<B>Керування повторними<BR/>спробами</B><BR/><FONT POINT-SIZE="10">[Компонент · Reliable job processing]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_b8d81b74b679 [label=<<B>Планувальник завдань</B><BR/><FONT POINT-SIZE="10">[Компонент · Workflow engine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B><BR/><FONT POINT-SIZE="10">[Контейнер · Audit and observability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_c210e7db8afd [label=<<B>Сервіс підтримки клінічних<BR/>рішень</B><BR/><FONT POINT-SIZE="10">[Контейнер · Clinical decision support service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_b10c10dbc143 [label=<<B>Інтеграційний шлюз</B><BR/><FONT POINT-SIZE="10">[Контейнер · FHIR/DICOM/REST integration service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#3B5BDB", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_f9075d486a51 [label=<<B>Оркестратор взаємодії</B><BR/><FONT POINT-SIZE="10">[Контейнер · Application service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_331a3889c3d6 [label=<<B>Операційна база даних</B><BR/><FONT POINT-SIZE="10">[Сховище даних · Relational database]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_78e6a86e3609 [label=<<B>Детермінований рушій<BR/>сценаріїв</B><BR/><FONT POINT-SIZE="10">[Контейнер · Rules engine / finite-state machine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_f9075d486a51 -> n_78e6a86e3609 [ label=<Отримує детермінований наступний крок<BR/>і статус сценарію>];
+n_f9075d486a51 -> n_331a3889c3d6 [ label=<Зберігає життєвий цикл сесії та<BR/>незавершені дії>];
+n_f9075d486a51 -> n_5f5685eeff97 [ label=<Реєструє походження сформованої<BR/>репліки й виконаного кроку>];
+n_78e6a86e3609 -> n_c210e7db8afd [ label=<Передає завершений або проміжний<BR/>клінічний результат для агрегації>];
+n_78e6a86e3609 -> n_5f5685eeff97 [ label=<Фіксує версію, введення, правило та<BR/>результат обчислення>];
+n_c210e7db8afd -> n_5f5685eeff97 [ label=<Реєструє правила, джерела, пояснення<BR/>та клінічне підтвердження>];
+n_b10c10dbc143 -> n_5f5685eeff97 [ label=<Реєструє мету, згоду, склад даних і<BR/>зовнішній результат>];
+n_b8d81b74b679 -> n_331a3889c3d6 [ label=<Зберігає завдання та строки>];
+n_b8d81b74b679 -> n_97b83196d6e1 [ label=<Передає події для нагадування>];
+n_b8d81b74b679 -> n_78a700e90551 [ label=<Передає критичні строки й SLA>];
+n_97b83196d6e1 -> n_b10c10dbc143 [ label=<Надсилає повідомлення або календарну<BR/>подію>];
+n_78a700e90551 -> n_b10c10dbc143 [ label=<Запускає резервний клінічний або<BR/>кризовий маршрут>];
+n_97b83196d6e1 -> n_64d349359173 [ label=<Передає невдалу доставку для<BR/>обмеженого повтору>];
+n_64d349359173 -> n_331a3889c3d6 [ label=<Зберігає повтори та чергу помилок>];
+}

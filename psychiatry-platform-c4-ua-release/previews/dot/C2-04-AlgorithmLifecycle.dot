@@ -1,0 +1,43 @@
+digraph G {
+graph [rankdir=LR, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C2.04 — Життєвий цикл алгоритмів</B><BR/><FONT POINT-SIZE="12">Контейнери проєктування, перевірки, публікації, виконання та відкликання універсальних<BR/>визначень алгоритмів.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Платформа реалізації психіатричних сценаріїв та алгоритмів</B>>; color="#0A6EBD"; penwidth=2.2; style="rounded";
+n_ace1c56edb4b [label=<<B>Реєстр алгоритмів</B><BR/><FONT POINT-SIZE="10">[Сховище даних · Versioned registry]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_d23827c92006 [label=<<B>Студія алгоритмів і<BR/>протоколів</B><BR/><FONT POINT-SIZE="10">[Контейнер · Web application]</FONT>>, shape=box, style="rounded,filled", fillcolor="#8A5A00", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_384146de0c5d [label=<<B>API-шлюз і BFF</B><BR/><FONT POINT-SIZE="10">[Контейнер · Reverse proxy / API gateway]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B><BR/><FONT POINT-SIZE="10">[Контейнер · Audit and observability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_e37cdb3e9f92 [label=<<B>Незмінне сховище аудиту</B><BR/><FONT POINT-SIZE="10">[Сховище даних · WORM / append-only storage]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_da26d52269a5 [label=<<B>Шина доменних подій</B><BR/><FONT POINT-SIZE="10">[Контейнер · Event broker]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#C05621", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_dcb3f876e224 [label=<<B>Сервіс ідентичності, доступу<BR/>та згод</B><BR/><FONT POINT-SIZE="10">[Контейнер · OIDC, RBAC/ABAC, consent service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_78e6a86e3609 [label=<<B>Детермінований рушій<BR/>сценаріїв</B><BR/><FONT POINT-SIZE="10">[Контейнер · Rules engine / finite-state machine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+}
+n_b30059fba026 [label=<<B>Репозиторій вихідних<BR/>алгоритмів</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_d6434351ba8f [label=<<B>Постачальник електронної<BR/>ідентичності</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_9c1b2838ecd8 [label=<<B>Клінічний методолог</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#8A5A00", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_0a99d320f3b9 [label=<<B>Репозиторій клінічних<BR/>протоколів і знань</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_f465f9f86773 [label=<<B>Лікар-психіатр</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_487bf0f57271 [label=<<B>Психолог / психотерапевт</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_c7796133ac1d [label=<<B>Адміністратор платформи та<BR/>безпеки</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_09b340c80e8a [label=<<B>Сервіс термінологій</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_9c1b2838ecd8 -> n_d23827c92006 [ label=<Створює і погоджує формальні<BR/>визначення алгоритмів>];
+n_c7796133ac1d -> n_5f5685eeff97 [ label=<Контролює журнали, події безпеки та<BR/>технічні метрики>];
+n_c7796133ac1d -> n_d23827c92006 [ label=<Керує технічними політиками публікації<BR/>та відкликання>];
+n_d23827c92006 -> n_384146de0c5d [ label=<Викликає адміністративне API життєвого<BR/>циклу алгоритмів>];
+n_384146de0c5d -> n_dcb3f876e224 [ label=<Перевіряє сесію, повноваження та згоду>];
+n_384146de0c5d -> n_78e6a86e3609 [ label=<Передає типізовані команди виконання<BR/>сценарію>];
+n_384146de0c5d -> n_5f5685eeff97 [ label=<Реєструє доступ і результат оброблення<BR/>запиту>];
+n_dcb3f876e224 -> n_d6434351ba8f [ label=<Федеративно автентифікує користувача>];
+n_dcb3f876e224 -> n_5f5685eeff97 [ label=<Реєструє рішення авторизації та зміни<BR/>згод>];
+n_78e6a86e3609 -> n_ace1c56edb4b [ label=<Завантажує підписану опубліковану<BR/>версію визначення>];
+n_78e6a86e3609 -> n_da26d52269a5 [ label=<Публікує події результату, прапорця,<BR/>паузи та завершення>];
+n_78e6a86e3609 -> n_5f5685eeff97 [ label=<Фіксує версію, введення, правило та<BR/>результат обчислення>];
+n_d23827c92006 -> n_b30059fba026 [ label=<Імпортує проєктні документи зі<BR/>збереженням походження>];
+n_d23827c92006 -> n_ace1c56edb4b [ label=<Публікує лише погоджені, підписані й<BR/>протестовані версії>];
+n_d23827c92006 -> n_da26d52269a5 [ label=<Публікує події публікації, відкликання<BR/>та закінчення чинності>];
+n_d23827c92006 -> n_5f5685eeff97 [ label=<Реєструє зміни, перевірки, погодження<BR/>та випуски>];
+n_da26d52269a5 -> n_5f5685eeff97 [ label=<Доставляє доменні події для незмінного<BR/>журналу>];
+n_5f5685eeff97 -> n_e37cdb3e9f92 [ label=<Записує незмінні події та контрольні<BR/>суми>];
+}

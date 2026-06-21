@@ -1,0 +1,595 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/psychiatry/algorithm-definition.schema.json",
+  "title": "Універсальне визначення клінічного алгоритму",
+  "description": "Формальний версійований контракт алгоритму психіатричного скринінгу, інтерв'ю, вимірювання або супроводу.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "algorithmId",
+    "version",
+    "status",
+    "metadata",
+    "applicability",
+    "consent",
+    "steps",
+    "outcomes",
+    "dataPolicy",
+    "testCases"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "algorithmId": {
+      "$ref": "#/$defs/id"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "status": {
+      "enum": ["draft", "in_review", "approved", "published", "retired", "revoked"]
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata"
+    },
+    "applicability": {
+      "$ref": "#/$defs/applicability"
+    },
+    "consent": {
+      "$ref": "#/$defs/consentPolicy"
+    },
+    "communication": {
+      "$ref": "#/$defs/communicationPolicy"
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/step"
+      }
+    },
+    "scoring": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/scoringRule"
+      },
+      "default": []
+    },
+    "redFlags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/redFlagRule"
+      },
+      "default": []
+    },
+    "measurementProfiles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/measurementProfile"
+      },
+      "default": []
+    },
+    "outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/outcome"
+      }
+    },
+    "routing": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/routingRule"
+      },
+      "default": []
+    },
+    "followUp": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/followUpRule"
+      },
+      "default": []
+    },
+    "aiPolicy": {
+      "$ref": "#/$defs/aiPolicy"
+    },
+    "dataPolicy": {
+      "$ref": "#/$defs/dataPolicy"
+    },
+    "testCases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/testCase"
+      }
+    },
+    "signatures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/signature"
+      },
+      "default": []
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{2,127}$"
+    },
+    "localizedText": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      },
+      "propertyNames": {
+        "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+      }
+    },
+    "sourceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceId", "title", "versionOrDate", "location"],
+      "properties": {
+        "sourceId": { "$ref": "#/$defs/id" },
+        "title": { "type": "string", "minLength": 1 },
+        "versionOrDate": { "type": "string", "minLength": 1 },
+        "location": { "type": "string", "minLength": 1 },
+        "checksum": { "type": "string" },
+        "license": { "type": "string" },
+        "accessVerified": { "type": "boolean" },
+        "notes": { "type": "string" }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "category", "owner", "sources", "languages", "createdAt", "updatedAt"],
+      "properties": {
+        "name": { "$ref": "#/$defs/localizedText" },
+        "shortName": { "$ref": "#/$defs/localizedText" },
+        "description": { "$ref": "#/$defs/localizedText" },
+        "category": {
+          "enum": [
+            "screening",
+            "structured_interview",
+            "mental_status_exam",
+            "measurement",
+            "crisis",
+            "routing",
+            "follow_up",
+            "education",
+            "composite"
+          ]
+        },
+        "clinicalDomain": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "owner": { "type": "string", "minLength": 1 },
+        "clinicalReviewers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/sourceReference" }
+        },
+        "languages": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$" },
+          "uniqueItems": true
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "effectiveFrom": { "type": "string", "format": "date-time" },
+        "effectiveTo": { "type": "string", "format": "date-time" },
+        "supersedes": { "type": "string" },
+        "changeSummary": { "type": "string" },
+        "licenseReviewRequired": { "type": "boolean", "default": true }
+      }
+    },
+    "applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowedRoles"],
+      "properties": {
+        "allowedRoles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": ["patient", "psychiatrist", "psychologist", "nurse", "crisis_specialist", "methodologist"]
+          },
+          "uniqueItems": true
+        },
+        "minAgeYears": { "type": "number", "minimum": 0 },
+        "maxAgeYears": { "type": "number", "minimum": 0 },
+        "inclusion": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/condition" }
+        },
+        "exclusion": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/condition" }
+        },
+        "requiredContext": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "contraindicationMessage": { "$ref": "#/$defs/localizedText" }
+      }
+    },
+    "consentPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requiredPurposes"],
+      "properties": {
+        "requiredPurposes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "scenario_participation",
+              "clinical_processing",
+              "media_capture",
+              "external_ai_processing",
+              "ehr_exchange",
+              "notifications",
+              "research_secondary_use"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "optionalPurposes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "allowRepresentative": { "type": "boolean" },
+        "reconfirmAfterDays": { "type": "integer", "minimum": 1 },
+        "informationText": { "$ref": "#/$defs/localizedText" }
+      }
+    },
+    "communicationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowedChannels": {
+          "type": "array",
+          "items": { "enum": ["text", "voice", "video", "avatar", "vr", "speech_to_text"] },
+          "uniqueItems": true
+        },
+        "patientMayChoose": { "type": "boolean", "default": true },
+        "adaptiveStyleAllowed": { "type": "boolean", "default": true },
+        "mutableAttributes": {
+          "type": "array",
+          "items": { "enum": ["channel", "speech_rate", "timbre", "formality", "sentence_length", "captions", "repetition"] },
+          "uniqueItems": true
+        },
+        "immutableClinicalContent": { "type": "boolean", "const": true },
+        "fallbackChannel": { "enum": ["text", "voice", "speech_to_text"] }
+      }
+    },
+    "answerSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "enum": ["boolean", "integer", "number", "string", "coded", "date", "datetime", "duration", "multi_coded", "quantity"]
+        },
+        "required": { "type": "boolean", "default": true },
+        "minimum": { "type": "number" },
+        "maximum": { "type": "number" },
+        "unit": { "type": "string" },
+        "allowedCodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["code", "display"],
+            "properties": {
+              "code": { "type": "string" },
+              "display": { "$ref": "#/$defs/localizedText" },
+              "score": { "type": "number" }
+            }
+          }
+        },
+        "allowUnknown": { "type": "boolean", "default": false },
+        "allowNotApplicable": { "type": "boolean", "default": false },
+        "validationMessage": { "$ref": "#/$defs/localizedText" }
+      }
+    },
+    "condition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["all"],
+          "properties": {
+            "all": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/condition" }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["any"],
+          "properties": {
+            "any": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/condition" }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["not"],
+          "properties": {
+            "not": { "$ref": "#/$defs/condition" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["fact", "operator"],
+          "properties": {
+            "fact": { "type": "string", "minLength": 1 },
+            "operator": {
+              "enum": ["eq", "neq", "gt", "gte", "lt", "lte", "in", "not_in", "exists", "missing", "contains", "matches"]
+            },
+            "value": {},
+            "values": { "type": "array" }
+          }
+        }
+      ]
+    },
+    "transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["targetStepId"],
+      "properties": {
+        "transitionId": { "$ref": "#/$defs/id" },
+        "condition": { "$ref": "#/$defs/condition" },
+        "targetStepId": { "$ref": "#/$defs/id" },
+        "priority": { "type": "integer", "minimum": 0 },
+        "explanation": { "type": "string" }
+      }
+    },
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stepId", "type", "title"],
+      "properties": {
+        "stepId": { "$ref": "#/$defs/id" },
+        "type": {
+          "enum": [
+            "information",
+            "consent",
+            "complaint",
+            "question",
+            "questionnaire",
+            "measurement",
+            "task",
+            "decision",
+            "clinical_review",
+            "routing",
+            "follow_up",
+            "finish"
+          ]
+        },
+        "title": { "$ref": "#/$defs/localizedText" },
+        "prompt": { "$ref": "#/$defs/localizedText" },
+        "sourceItemId": { "type": "string" },
+        "sourceReferenceId": { "$ref": "#/$defs/id" },
+        "answer": { "$ref": "#/$defs/answerSchema" },
+        "measurementProfileId": { "$ref": "#/$defs/id" },
+        "precondition": { "$ref": "#/$defs/condition" },
+        "transitions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/transition" }
+        },
+        "defaultNextStepId": { "$ref": "#/$defs/id" },
+        "timeoutSeconds": { "type": "integer", "minimum": 1 },
+        "automationLevel": {
+          "enum": ["information_only", "draft", "human_review_required", "preauthorized_low_risk", "safety_critical"]
+        },
+        "auditCategory": { "type": "string" }
+      }
+    },
+    "scoringRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ruleId", "outputFact", "expressionLanguage", "expression"],
+      "properties": {
+        "ruleId": { "$ref": "#/$defs/id" },
+        "description": { "type": "string" },
+        "outputFact": { "type": "string" },
+        "expressionLanguage": { "type": "string", "const": "safe-expression-v1" },
+        "expression": { "type": "string", "minLength": 1 },
+        "rounding": { "enum": ["none", "floor", "ceil", "half_up", "half_even"] },
+        "missingDataPolicy": { "enum": ["block", "exclude", "zero", "explicit_rule"] },
+        "sourceReferenceId": { "$ref": "#/$defs/id" }
+      }
+    },
+    "redFlagRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ruleId", "condition", "severity", "action", "requiresAcknowledgement"],
+      "properties": {
+        "ruleId": { "$ref": "#/$defs/id" },
+        "description": { "type": "string" },
+        "condition": { "$ref": "#/$defs/condition" },
+        "severity": { "enum": ["attention", "urgent", "critical"] },
+        "action": {
+          "enum": ["show_safety_message", "create_clinician_task", "notify_crisis_role", "activate_emergency_route", "block_normal_flow"]
+        },
+        "responseSlaSeconds": { "type": "integer", "minimum": 1 },
+        "requiresAcknowledgement": { "type": "boolean" },
+        "fallbackRouteId": { "$ref": "#/$defs/id" },
+        "patientMessage": { "$ref": "#/$defs/localizedText" },
+        "sourceReferenceId": { "$ref": "#/$defs/id" }
+      }
+    },
+    "measurementProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profileId", "modality", "qualityGate", "analysisOutputs"],
+      "properties": {
+        "profileId": { "$ref": "#/$defs/id" },
+        "modality": { "enum": ["ecg", "voice", "video", "image", "wearable", "other"] },
+        "deviceRequirements": { "type": "array", "items": { "type": "string" } },
+        "qualityGate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["rules", "onFailure"],
+          "properties": {
+            "rules": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/condition" } },
+            "onFailure": { "enum": ["repeat", "manual_review", "mark_unusable", "use_alternative"] }
+          }
+        },
+        "preprocessingPipeline": { "type": "string" },
+        "analyzerId": { "type": "string" },
+        "analyzerVersion": { "type": "string" },
+        "analysisOutputs": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "requiresClinicalConfirmation": { "type": "boolean", "default": true },
+        "primaryDataRetention": { "type": "string" }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["outcomeId", "condition", "label", "interpretationBoundary"],
+      "properties": {
+        "outcomeId": { "$ref": "#/$defs/id" },
+        "condition": { "$ref": "#/$defs/condition" },
+        "label": { "$ref": "#/$defs/localizedText" },
+        "patientText": { "$ref": "#/$defs/localizedText" },
+        "clinicianText": { "$ref": "#/$defs/localizedText" },
+        "interpretationBoundary": { "$ref": "#/$defs/localizedText" },
+        "priority": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "routingRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["routeId", "condition", "targetRole", "priority"],
+      "properties": {
+        "routeId": { "$ref": "#/$defs/id" },
+        "condition": { "$ref": "#/$defs/condition" },
+        "targetRole": { "type": "string" },
+        "priority": { "enum": ["routine", "priority", "urgent", "emergency"] },
+        "targetService": { "type": "string" },
+        "dueWithin": { "type": "string" },
+        "requiresHumanApproval": { "type": "boolean", "default": true },
+        "minimumDataSet": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "followUpRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["followUpId", "condition", "action", "schedule"],
+      "properties": {
+        "followUpId": { "$ref": "#/$defs/id" },
+        "condition": { "$ref": "#/$defs/condition" },
+        "action": { "enum": ["repeat_algorithm", "repeat_step", "repeat_measurement", "contact_patient", "clinical_review"] },
+        "targetId": { "type": "string" },
+        "schedule": { "type": "string", "description": "ISO 8601 duration або локальна версійована політика." },
+        "maxAttempts": { "type": "integer", "minimum": 1 },
+        "escalationAfter": { "type": "string" },
+        "allowedChannels": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "aiPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowedFunctions": {
+          "type": "array",
+          "items": {
+            "enum": ["speech_to_text", "text_to_speech", "structured_extraction", "rag", "translation", "style_adaptation", "summarization", "signal_analysis", "image_analysis"]
+          },
+          "uniqueItems": true
+        },
+        "prohibitedFunctions": {
+          "type": "array",
+          "items": {
+            "enum": ["authoritative_scoring", "change_branching", "autonomous_diagnosis", "autonomous_prescription", "suppress_red_flag", "autonomous_crisis_routing"]
+          },
+          "uniqueItems": true
+        },
+        "externalModelsAllowed": { "type": "boolean" },
+        "allowedModelClasses": { "type": "array", "items": { "type": "string" } },
+        "dataMinimizationProfile": { "type": "string" },
+        "humanReviewTriggers": { "type": "array", "items": { "type": "string" } },
+        "fallbackTemplateId": { "type": "string" }
+      }
+    },
+    "dataPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "retentionPolicyId", "auditRequired"],
+      "properties": {
+        "classification": { "enum": ["public", "internal", "confidential", "clinical_sensitive", "highly_restricted"] },
+        "retentionPolicyId": { "type": "string" },
+        "storeRawMedia": { "type": "boolean" },
+        "secondaryUseAllowed": { "type": "boolean" },
+        "secondaryUseRequiresSeparateConsent": { "type": "boolean" },
+        "pseudonymizationProfile": { "type": "string" },
+        "allowedDestinations": { "type": "array", "items": { "type": "string" } },
+        "auditRequired": { "type": "boolean", "const": true }
+      }
+    },
+    "testCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["testId", "type", "inputs", "expected"],
+      "properties": {
+        "testId": { "$ref": "#/$defs/id" },
+        "type": { "enum": ["happy_path", "boundary", "branching", "missing_data", "red_flag", "quality_failure", "consent", "routing", "regression"] },
+        "description": { "type": "string" },
+        "inputs": { "type": "object" },
+        "expected": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "finalState": { "type": "string" },
+            "nextStepId": { "type": "string" },
+            "facts": { "type": "object" },
+            "score": { "type": "number" },
+            "outcomeId": { "type": "string" },
+            "redFlagIds": { "type": "array", "items": { "type": "string" } },
+            "routeIds": { "type": "array", "items": { "type": "string" } },
+            "tasks": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "subject", "signedAt", "digestAlgorithm", "digest"],
+      "properties": {
+        "role": { "enum": ["clinical_owner", "clinical_reviewer", "methodologist", "security_reviewer", "publisher"] },
+        "subject": { "type": "string" },
+        "signedAt": { "type": "string", "format": "date-time" },
+        "digestAlgorithm": { "type": "string" },
+        "digest": { "type": "string" }
+      }
+    }
+  }
+}

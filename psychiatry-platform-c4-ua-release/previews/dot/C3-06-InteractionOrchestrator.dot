@@ -1,0 +1,43 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.06 — Компоненти оркестратора взаємодії</B><BR/><FONT POINT-SIZE="12">Компоненти сесії, діалогового стану, контексту, каналів і адаптивної комунікації.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Оркестратор взаємодії</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_3a92c2989bf3 [label=<<B>Маршрутизатор каналів</B><BR/><FONT POINT-SIZE="10">[Компонент · Channel adapters]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_eeb78990cd82 [label=<<B>Формувач контексту</B><BR/><FONT POINT-SIZE="10">[Компонент · Context service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_f5c90244048a [label=<<B>Стан діалогу</B><BR/><FONT POINT-SIZE="10">[Компонент · State machine adapter]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_42eca2c3569a [label=<<B>Координатор відповіді</B><BR/><FONT POINT-SIZE="10">[Компонент · Application service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_2bd1a150be88 [label=<<B>Менеджер сесії</B><BR/><FONT POINT-SIZE="10">[Компонент · Stateful service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_c5cecdd10a95 [label=<<B>Селектор стилю комунікації</B><BR/><FONT POINT-SIZE="10">[Компонент · Policy service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_4a71738c36d2 [label=<<B>Оркестратор ШІ та контроль<BR/>безпеки</B><BR/><FONT POINT-SIZE="10">[Контейнер · AI gateway / model orchestration]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6741D9", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_384146de0c5d [label=<<B>API-шлюз і BFF</B><BR/><FONT POINT-SIZE="10">[Контейнер · Reverse proxy / API gateway]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B><BR/><FONT POINT-SIZE="10">[Контейнер · Audit and observability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_85612016a131 [label=<<B>Кеш і короткоживучий стан</B><BR/><FONT POINT-SIZE="10">[Сховище даних · In-memory data store]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_40b119007c9f [label=<<B>Клінічне сховище</B><BR/><FONT POINT-SIZE="10">[Сховище даних · FHIR-oriented clinical repository]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_331a3889c3d6 [label=<<B>Операційна база даних</B><BR/><FONT POINT-SIZE="10">[Сховище даних · Relational database]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_78e6a86e3609 [label=<<B>Детермінований рушій<BR/>сценаріїв</B><BR/><FONT POINT-SIZE="10">[Контейнер · Rules engine / finite-state machine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_eb4c5110ae64 [label=<<B>Сервіс завдань, нагадувань і<BR/>ескалацій</B><BR/><FONT POINT-SIZE="10">[Контейнер · Workflow scheduler]</FONT>>, shape=box, style="rounded,filled", fillcolor="#B7791F", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_384146de0c5d -> n_78e6a86e3609 [ label=<Передає типізовані команди виконання<BR/>сценарію>];
+n_384146de0c5d -> n_eb4c5110ae64 [ label=<Передає команди щодо завдань,<BR/>нагадувань і візитів>];
+n_384146de0c5d -> n_5f5685eeff97 [ label=<Реєструє доступ і результат оброблення<BR/>запиту>];
+n_78e6a86e3609 -> n_40b119007c9f [ label=<Читає та записує відповіді, бали,<BR/>ознаки й структурований результат>];
+n_78e6a86e3609 -> n_eb4c5110ae64 [ label=<Створює контрольні завдання та строки<BR/>реакції>];
+n_78e6a86e3609 -> n_5f5685eeff97 [ label=<Фіксує версію, введення, правило та<BR/>результат обчислення>];
+n_4a71738c36d2 -> n_5f5685eeff97 [ label=<Реєструє модель, шаблон, політику,<BR/>джерела та рішення запобіжників>];
+n_eb4c5110ae64 -> n_331a3889c3d6 [ label=<Зберігає завдання, строки, повтори та<BR/>ідемпотентні ключі>];
+n_eb4c5110ae64 -> n_5f5685eeff97 [ label=<Реєструє створення, доставку та<BR/>результат завдання>];
+n_2bd1a150be88 -> n_331a3889c3d6 [ label=<Зберігає стан сесії>];
+n_2bd1a150be88 -> n_85612016a131 [ label=<Зберігає короткоживучі блокування й<BR/>маркери відновлення>];
+n_2bd1a150be88 -> n_f5c90244048a [ label=<Створює або відновлює стан діалогу>];
+n_f5c90244048a -> n_eeb78990cd82 [ label=<Запитує мінімальний контекст поточного<BR/>кроку>];
+n_eeb78990cd82 -> n_40b119007c9f [ label=<Читає дозволені структуровані дані>];
+n_eeb78990cd82 -> n_c5cecdd10a95 [ label=<Передає дозволені ознаки для вибору<BR/>стилю>];
+n_3a92c2989bf3 -> n_4a71738c36d2 [ label=<Використовує дозволене розпізнавання<BR/>або синтез каналу>];
+n_c5cecdd10a95 -> n_42eca2c3569a [ label=<Передає канал і параметри стилю>];
+n_42eca2c3569a -> n_78e6a86e3609 [ label=<Запитує наступний детермінований крок>];
+n_42eca2c3569a -> n_4a71738c36d2 [ label=<Запитує допоміжне формулювання без<BR/>зміни клінічної логіки>];
+n_42eca2c3569a -> n_5f5685eeff97 [ label=<Фіксує склад відповіді та джерела>];
+}

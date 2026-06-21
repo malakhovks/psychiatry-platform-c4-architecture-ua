@@ -1,0 +1,312 @@
+schemaVersion: "1.0"
+algorithmId: "example.universal-screening"
+version: "0.1.0-draft"
+status: "draft"
+
+metadata:
+  name:
+    uk-UA: "Шаблон універсального скринінгового алгоритму"
+  shortName:
+    uk-UA: "Шаблон скринінгу"
+  description:
+    uk-UA: "Приклад структури без ліцензованого тексту питань і без затверджених клінічних порогів."
+  category: "screening"
+  clinicalDomain:
+    - "psychiatry"
+  owner: "Визначити клінічного власника"
+  clinicalReviewers: []
+  sources:
+    - sourceId: "source.approved-folder"
+      title: "Затверджений документ алгоритму"
+      versionOrDate: "Вказати версію або дату"
+      location: "Команда Психіатрії алгоритм/<назва документа>"
+      checksum: "Вирахувати після погодження"
+      license: "Перевірити права використання"
+      accessVerified: false
+      notes: "Текст питань підключити лише після клінічної та правової перевірки."
+  languages:
+    - "uk-UA"
+  createdAt: "2026-06-20T00:00:00Z"
+  updatedAt: "2026-06-20T00:00:00Z"
+  licenseReviewRequired: true
+
+applicability:
+  allowedRoles:
+    - "patient"
+    - "psychiatrist"
+    - "psychologist"
+  minAgeYears: 18
+  requiredContext:
+    - "identity_or_approved_anonymous_mode"
+  inclusion: []
+  exclusion: []
+  contraindicationMessage:
+    uk-UA: "Цей сценарій не відповідає поточному контексту. Зверніться до уповноваженого фахівця."
+
+consent:
+  requiredPurposes:
+    - "scenario_participation"
+    - "clinical_processing"
+  optionalPurposes:
+    - "notifications"
+    - "ehr_exchange"
+    - "external_ai_processing"
+  allowRepresentative: false
+  reconfirmAfterDays: 365
+  informationText:
+    uk-UA: "Пояснити мету, склад даних, межі скринінгу, право відмови та кризовий маршрут."
+
+communication:
+  allowedChannels:
+    - "text"
+    - "voice"
+    - "speech_to_text"
+    - "video"
+    - "avatar"
+  patientMayChoose: true
+  adaptiveStyleAllowed: true
+  mutableAttributes:
+    - "channel"
+    - "speech_rate"
+    - "timbre"
+    - "formality"
+    - "sentence_length"
+    - "captions"
+    - "repetition"
+  immutableClinicalContent: true
+  fallbackChannel: "text"
+
+steps:
+  - stepId: "intro"
+    type: "information"
+    title:
+      uk-UA: "Вступ"
+    prompt:
+      uk-UA: "Надати погоджений вступ і межі інтерпретації."
+    defaultNextStepId: "consent"
+    automationLevel: "information_only"
+    auditCategory: "scenario.introduction"
+
+  - stepId: "consent"
+    type: "consent"
+    title:
+      uk-UA: "Інформована згода"
+    prompt:
+      uk-UA: "Отримати необхідні згоди."
+    defaultNextStepId: "complaints"
+    automationLevel: "human_review_required"
+    auditCategory: "consent.capture"
+
+  - stepId: "complaints"
+    type: "complaint"
+    title:
+      uk-UA: "Скарги та потреби"
+    prompt:
+      uk-UA: "Опишіть основні скарги, потреби й мету звернення."
+    answer:
+      type: "string"
+      required: false
+      allowUnknown: true
+      validationMessage:
+        uk-UA: "Уточніть або пропустіть цей крок."
+    defaultNextStepId: "q01"
+    automationLevel: "draft"
+    auditCategory: "clinical.complaint"
+
+  - stepId: "q01"
+    type: "question"
+    title:
+      uk-UA: "Питання 1"
+    prompt:
+      uk-UA: "Підключити точне формулювання з погодженого джерела."
+    sourceItemId: "SOURCE-ITEM-01"
+    sourceReferenceId: "source.approved-folder"
+    answer:
+      type: "coded"
+      required: true
+      allowedCodes:
+        - code: "option_0"
+          display:
+            uk-UA: "Варіант 0 з погодженого джерела"
+          score: 0
+        - code: "option_1"
+          display:
+            uk-UA: "Варіант 1 з погодженого джерела"
+          score: 1
+    transitions:
+      - transitionId: "q01-critical"
+        condition:
+          fact: "answers.q01.code"
+          operator: "eq"
+          value: "critical_option"
+        targetStepId: "crisis-message"
+        priority: 100
+        explanation: "Приклад пріоритетного переходу; замінити затвердженим правилом."
+    defaultNextStepId: "finish"
+    automationLevel: "safety_critical"
+    auditCategory: "clinical.answer"
+
+  - stepId: "crisis-message"
+    type: "information"
+    title:
+      uk-UA: "Негайна допомога"
+    prompt:
+      uk-UA: "Підключити незмінний погоджений текст кризової інструкції."
+    defaultNextStepId: "finish"
+    automationLevel: "safety_critical"
+    auditCategory: "crisis.patient_message"
+
+  - stepId: "finish"
+    type: "finish"
+    title:
+      uk-UA: "Завершення"
+    prompt:
+      uk-UA: "Показати межі інтерпретації, подальші дії та контакти."
+    automationLevel: "human_review_required"
+    auditCategory: "scenario.complete"
+
+scoring:
+  - ruleId: "score.total"
+    description: "Приклад формули. Замінити формулою з погодженого джерела."
+    outputFact: "scores.total"
+    expressionLanguage: "safe-expression-v1"
+    expression: "sum(answer_scores('q01'))"
+    rounding: "none"
+    missingDataPolicy: "block"
+    sourceReferenceId: "source.approved-folder"
+
+redFlags:
+  - ruleId: "risk.example-critical"
+    description: "Приклад критичної умови; не використовувати без клінічного погодження."
+    condition:
+      fact: "answers.q01.code"
+      operator: "eq"
+      value: "critical_option"
+    severity: "critical"
+    action: "notify_crisis_role"
+    responseSlaSeconds: 300
+    requiresAcknowledgement: true
+    fallbackRouteId: "route.local-emergency"
+    patientMessage:
+      uk-UA: "Використати лише погоджений кризовий текст."
+    sourceReferenceId: "source.approved-folder"
+
+measurementProfiles: []
+
+outcomes:
+  - outcomeId: "outcome.complete"
+    condition:
+      fact: "session.state"
+      operator: "eq"
+      value: "EVALUATED"
+    label:
+      uk-UA: "Сценарій завершено"
+    patientText:
+      uk-UA: "Результат є скринінговим і не встановлює діагноз."
+    clinicianText:
+      uk-UA: "Переглянути первинні відповіді, правила, ризики й походження."
+    interpretationBoundary:
+      uk-UA: "Застосовувати лише в межах затвердженої клінічної версії."
+    priority: 1
+
+routing:
+  - routeId: "route.clinical-review"
+    condition:
+      fact: "session.state"
+      operator: "eq"
+      value: "EVALUATED"
+    targetRole: "psychiatrist_or_psychologist"
+    priority: "routine"
+    dueWithin: "P7D"
+    requiresHumanApproval: true
+    minimumDataSet:
+      - "algorithm_id_version"
+      - "responses"
+      - "scores"
+      - "risk_flags"
+      - "provenance"
+
+followUp:
+  - followUpId: "followup.repeat"
+    condition:
+      fact: "clinical_plan.repeat_screening"
+      operator: "eq"
+      value: true
+    action: "repeat_algorithm"
+    targetId: "example.universal-screening"
+    schedule: "P14D"
+    maxAttempts: 3
+    escalationAfter: "P3D"
+    allowedChannels:
+      - "text"
+      - "voice"
+
+aiPolicy:
+  allowedFunctions:
+    - "speech_to_text"
+    - "text_to_speech"
+    - "structured_extraction"
+    - "rag"
+    - "style_adaptation"
+    - "summarization"
+  prohibitedFunctions:
+    - "authoritative_scoring"
+    - "change_branching"
+    - "autonomous_diagnosis"
+    - "autonomous_prescription"
+    - "suppress_red_flag"
+    - "autonomous_crisis_routing"
+  externalModelsAllowed: false
+  allowedModelClasses:
+    - "approved-local-language-model"
+    - "approved-speech-model"
+  dataMinimizationProfile: "clinical-minimum-v1"
+  humanReviewTriggers:
+    - "clinical_recommendation"
+    - "uncertain_extraction"
+    - "conflicting_sources"
+  fallbackTemplateId: "fallback.safe-uk-v1"
+
+dataPolicy:
+  classification: "clinical_sensitive"
+  retentionPolicyId: "institution-policy-to-define"
+  storeRawMedia: false
+  secondaryUseAllowed: false
+  secondaryUseRequiresSeparateConsent: true
+  pseudonymizationProfile: "research-pseudonymization-v1"
+  allowedDestinations:
+    - "clinical-repository"
+    - "approved-ehr"
+  auditRequired: true
+
+testCases:
+  - testId: "test.happy-path"
+    type: "happy_path"
+    description: "Звичайне завершення без критичної відповіді."
+    inputs:
+      answers:
+        q01:
+          code: "option_0"
+    expected:
+      finalState: "COMPLETED"
+      score: 0
+      outcomeId: "outcome.complete"
+      redFlagIds: []
+      routeIds:
+        - "route.clinical-review"
+
+  - testId: "test.red-flag"
+    type: "red_flag"
+    description: "Критична відповідь створює прапорець і кризове завдання до завершення звичайного потоку."
+    inputs:
+      answers:
+        q01:
+          code: "critical_option"
+    expected:
+      nextStepId: "crisis-message"
+      redFlagIds:
+        - "risk.example-critical"
+      tasks:
+        - "crisis-acknowledgement-required"
+
+signatures: []

@@ -1,0 +1,32 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>L4.02 — Агрегат виконання сценарію</B><BR/><FONT POINT-SIZE="12">Логічна структура сесії, результатів, ризиків, клінічного підтвердження й аудиту.</FONT>>;
+n_3f0c95ec6d55 [label=<<B>AlgorithmDefinition</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFE8A1", fontcolor="#4A3B00", color="#486581", penwidth=3];
+n_512b30c3fc86 [label=<<B>AnswerRecord</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFF9DB", fontcolor="#4A3B00", color="#486581", penwidth=1.5];
+n_186d9d8582fc [label=<<B>AuditEvent</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFF9DB", fontcolor="#4A3B00", color="#486581", penwidth=1.5];
+n_5eee008fa7fc [label=<<B>CareTrajectory</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFF9DB", fontcolor="#4A3B00", color="#486581", penwidth=1.5];
+n_44bafc75a4dc [label=<<B>ClinicalDecision</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFF9DB", fontcolor="#4A3B00", color="#486581", penwidth=1.5];
+n_93f0c6ac6663 [label=<<B>ClinicalDecisionDraft</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFF9DB", fontcolor="#4A3B00", color="#486581", penwidth=1.5];
+n_20ac7bf1eeb7 [label=<<B>MeasurementResult</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFF9DB", fontcolor="#4A3B00", color="#486581", penwidth=1.5];
+n_873db629ed11 [label=<<B>PatientContext</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFF9DB", fontcolor="#4A3B00", color="#486581", penwidth=1.5];
+n_1e633f65781d [label=<<B>RiskFlag</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFF9DB", fontcolor="#4A3B00", color="#C92A2A", penwidth=3];
+n_8007ddd991bc [label=<<B>ScenarioSession</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFE8A1", fontcolor="#4A3B00", color="#486581", penwidth=3];
+n_79c359a39f47 [label=<<B>ScoreResult</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFF9DB", fontcolor="#4A3B00", color="#C92A2A", penwidth=3];
+n_947df799f6a3 [label=<<B>ConsentSnapshot</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFF9DB", fontcolor="#4A3B00", color="#486581", penwidth=1.5];
+n_1a0e820da4a3 [label=<<B>FollowUpTask</B><BR/><FONT POINT-SIZE="10">[Логічний елемент]</FONT>>, shape=component, style="rounded,filled", fillcolor="#FFF9DB", fontcolor="#4A3B00", color="#486581", penwidth=1.5];
+n_8007ddd991bc -> n_3f0c95ec6d55 [ label=<Посилається на закріплену версію>];
+n_8007ddd991bc -> n_873db629ed11 [ label=<Містить мінімальний контекст>];
+n_8007ddd991bc -> n_947df799f6a3 [ label=<Фіксує>];
+n_8007ddd991bc -> n_512b30c3fc86 [ label=<Накопичує>];
+n_8007ddd991bc -> n_20ac7bf1eeb7 [ label=<Накопичує>];
+n_8007ddd991bc -> n_79c359a39f47 [ label=<Обчислює>];
+n_8007ddd991bc -> n_1e633f65781d [ label=<Формує>];
+n_8007ddd991bc -> n_93f0c6ac6663 [ label=<Формує проєкт>];
+n_93f0c6ac6663 -> n_44bafc75a4dc [ label=<Підтверджується або замінюється<BR/>фахівцем>];
+n_44bafc75a4dc -> n_5eee008fa7fc [ label=<Затверджує>];
+n_5eee008fa7fc -> n_1a0e820da4a3 [ label=<Породжує>];
+n_8007ddd991bc -> n_186d9d8582fc [ label=<Публікує>];
+n_44bafc75a4dc -> n_186d9d8582fc [ label=<Фіксується>];
+}

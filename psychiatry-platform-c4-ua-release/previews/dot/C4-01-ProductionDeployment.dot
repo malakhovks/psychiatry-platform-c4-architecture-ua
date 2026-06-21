@@ -1,0 +1,148 @@
+digraph G {
+graph [rankdir=LR, compound=true, bgcolor="white", pad="0.35", nodesep="0.55", ranksep="0.95", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=10, margin="0.12,0.08"];
+edge [fontname="DejaVu Sans", fontsize=8, color="#486581", fontcolor="#334E68", penwidth=1.2, arrowsize=0.7];
+label=<<B>C4.01 — Виробниче гібридне розгортання</B><BR/><FONT POINT-SIZE="10">Виробниче гібридне розгортання з DMZ, прикладним кластером, приватним кластером даних,<BR/>моніторингом і зовнішніми сервісами.</FONT>>;
+subgraph cluster_n_934cf753eb8e {
+label=<<B>Кластер прикладних сервісів</B><BR/><FONT POINT-SIZE="9">Kubernetes / containers</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_f76999497b71 [label=<<B>Оркестратор ШІ та контроль<BR/>безпеки</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · AI gateway / model orchestration]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6741D9", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_0841e33bf313 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Audit and observability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_10373d53fe3a [label=<<B>Кеш і короткоживучий стан</B><BR/><FONT POINT-SIZE="8">[Сховище даних · In-memory data store]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_09af2d57a6c7 [label=<<B>Сервіс підтримки клінічних<BR/>рішень</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Clinical decision support service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_d8a2fa772daa [label=<<B>Шина доменних подій</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Event broker]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#C05621", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_8c66733eb483 [label=<<B>Сервіс ідентичності, доступу<BR/>та згод</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · OIDC, RBAC/ABAC, consent service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_9d17f97246ec [label=<<B>Інтеграційний шлюз</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · FHIR/DICOM/REST integration service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#3B5BDB", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_65af4e9c2544 [label=<<B>Оркестратор взаємодії</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Application service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_6e77a520fd2f [label=<<B>Сервіс мультимодальних<BR/>вимірювань</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Signal and media processing]</FONT>>, shape=box, style="rounded,filled", fillcolor="#0F766E", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_e8f5a7fd4a93 [label=<<B>Детермінований рушій<BR/>сценаріїв</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Rules engine / finite-state machine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#C92A2A", penwidth=3];
+n_a3ff0b30ab9d [label=<<B>Сервіс завдань, нагадувань і<BR/>ескалацій</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Workflow scheduler]</FONT>>, shape=box, style="rounded,filled", fillcolor="#B7791F", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_04f2be15068c [label=<<B>Service mesh</B><BR/><FONT POINT-SIZE="8">[Інфраструктура · mTLS service mesh]</FONT>>, shape=hexagon, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+}
+subgraph cluster_n_39d4a133a44d {
+label=<<B>Робоче місце медичного працівника</B><BR/><FONT POINT-SIZE="9">Managed workstation</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_718f74942865 [label=<<B>Кабінет медичного працівника</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Web application]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+}
+subgraph cluster_n_75b4ac4a98f7 {
+label=<<B>Кластер клінічних даних</B><BR/><FONT POINT-SIZE="9">HA databases and object storage</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_c5b5925be1ff [label=<<B>Реєстр алгоритмів</B><BR/><FONT POINT-SIZE="8">[Сховище даних · Versioned registry]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_0bc8731282b4 [label=<<B>Аналітичне сховище</B><BR/><FONT POINT-SIZE="8">[Сховище даних · Analytics warehouse]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_57380ace561c [label=<<B>Незмінне сховище аудиту</B><BR/><FONT POINT-SIZE="8">[Сховище даних · WORM / append-only storage]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_72393d05d6c0 [label=<<B>Резервне копіювання та<BR/>відновлення</B><BR/><FONT POINT-SIZE="8">[Інфраструктура · Backup/DR]</FONT>>, shape=hexagon, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_0a82e6426580 [label=<<B>Клінічне сховище</B><BR/><FONT POINT-SIZE="8">[Сховище даних · FHIR-oriented clinical repository]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_6aec4fc5906d [label=<<B>KMS / HSM</B><BR/><FONT POINT-SIZE="8">[Інфраструктура · KMS/HSM]</FONT>>, shape=hexagon, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_adbf05951f47 [label=<<B>База знань та індекс пошуку</B><BR/><FONT POINT-SIZE="8">[Сховище даних · Document and vector store]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_1287fec9dc9f [label=<<B>Захищене об&#x27;єктне сховище</B><BR/><FONT POINT-SIZE="8">[Сховище даних · Encrypted object storage]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#FFE3E3", fontcolor="#5C1A1A", color="#486581", penwidth=1.5];
+n_038b0a6adae3 [label=<<B>Операційна база даних</B><BR/><FONT POINT-SIZE="8">[Сховище даних · Relational database]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+}
+subgraph cluster_n_af665588c218 {
+label=<<B>Периметр / DMZ</B><BR/><FONT POINT-SIZE="9">Hardened Linux / reverse proxy</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_414497aa3513 [label=<<B>API-шлюз і BFF</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Reverse proxy / API gateway]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_fe16e04056a7 [label=<<B>WAF і захист від DDoS</B><BR/><FONT POINT-SIZE="8">[Інфраструктура · WAF]</FONT>>, shape=hexagon, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+}
+subgraph cluster_n_61ca52c64109 {
+label=<<B>Зовнішні керовані сервіси</B><BR/><FONT POINT-SIZE="9">External infrastructure</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_3376e40b705d [label=<<B>Репозиторій вихідних<BR/>алгоритмів</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_e935214d8cb8 [label=<<B>Календар і запис на прийом</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_64a7c9f573cc [label=<<B>Медичні пристрої та сенсори</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_a7fbbad18fb0 [label=<<B>МІС / EHR / ЕСОЗ</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_ce5b1e302c6c [label=<<B>Кризова / екстрена служба</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#C92A2A", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_974c2b6c4c3a [label=<<B>Постачальник електронної<BR/>ідентичності</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_d381ebe1eeb5 [label=<<B>Реєстр і середовище моделей<BR/>ШІ</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6741D9", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_7257d314937e [label=<<B>Провайдер повідомлень</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_e456f42ecad4 [label=<<B>PACS / DICOM-сховище</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_d3a975151687 [label=<<B>Репозиторій клінічних<BR/>протоколів і знань</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_0a2e5c4dcbd0 [label=<<B>Платформа телемедицини</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_17041e55290f [label=<<B>Сервіс термінологій</B><BR/><FONT POINT-SIZE="8">[Екземпляр системи]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+}
+subgraph cluster_n_31a872d4c285 {
+label=<<B>Робоче місце методолога</B><BR/><FONT POINT-SIZE="9">Managed workstation</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_ec3c8da970f3 [label=<<B>Студія алгоритмів і<BR/>протоколів</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · Web application]</FONT>>, shape=box, style="rounded,filled", fillcolor="#8A5A00", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+}
+subgraph cluster_n_41c7c2271667 {
+label=<<B>Контур моніторингу й реагування</B><BR/><FONT POINT-SIZE="9">Observability/SIEM</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_27d02750edf0 [label=<<B>Моніторинг, трасування та<BR/>SIEM</B><BR/><FONT POINT-SIZE="8">[Інфраструктура · OpenTelemetry / SIEM]</FONT>>, shape=hexagon, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+}
+subgraph cluster_n_16e927b792a4 {
+label=<<B>Пристрій пацієнта</B><BR/><FONT POINT-SIZE="9">Android / iOS / modern browser</FONT>>; color="#718096"; style="rounded,dashed"; penwidth=1.5;
+n_ca523797801b [label=<<B>Застосунок пацієнта</B><BR/><FONT POINT-SIZE="8">[Екземпляр контейнера · PWA / mobile / web, WebRTC, Web Speech APIs]</FONT>>, shape=box, style="rounded,filled", fillcolor="#0B7285", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+}
+n_fe16e04056a7 -> n_414497aa3513 [label=<Передає дозволений TLS-трафік>];
+n_0841e33bf313 -> n_04f2be15068c [label=<Експортує безпечну технічну<BR/>телеметрію>];
+n_0a82e6426580 -> n_6aec4fc5906d [label=<Використовує ключі шифрування>];
+n_1287fec9dc9f -> n_6aec4fc5906d [label=<Використовує ключі шифрування>];
+n_57380ace561c -> n_6aec4fc5906d [label=<Використовує ключі підпису й<BR/>шифрування>];
+n_0a82e6426580 -> n_72393d05d6c0 [label=<Передає зашифровані резервні<BR/>копії>];
+n_c5b5925be1ff -> n_72393d05d6c0 [label=<Передає незмінні резервні<BR/>копії>];
+n_57380ace561c -> n_72393d05d6c0 [label=<Передає незмінні резервні<BR/>копії>];
+n_0841e33bf313 -> n_27d02750edf0 [label=<Передає технічну телеметрію й<BR/>події безпеки>];
+n_ca523797801b -> n_414497aa3513 [label=<Викликає захищене<BR/>пацієнтське API>];
+n_718f74942865 -> n_414497aa3513 [label=<Викликає захищене клінічне<BR/>API>];
+n_ec3c8da970f3 -> n_414497aa3513 [label=<Викликає адміністративне<BR/>API життєвого циклу<BR/>алгоритмів>];
+n_414497aa3513 -> n_8c66733eb483 [label=<Перевіряє сесію,<BR/>повноваження та згоду>];
+n_414497aa3513 -> n_65af4e9c2544 [label=<Передає запити діалогової<BR/>взаємодії>];
+n_414497aa3513 -> n_e8f5a7fd4a93 [label=<Передає типізовані команди<BR/>виконання сценарію>];
+n_414497aa3513 -> n_09af2d57a6c7 [label=<Передає запити на клінічне<BR/>узагальнення й перегляд>];
+n_414497aa3513 -> n_6e77a520fd2f [label=<Передає метадані та<BR/>керовані потоки вимірювань>];
+n_414497aa3513 -> n_a3ff0b30ab9d [label=<Передає команди щодо<BR/>завдань, нагадувань і<BR/>візитів>];
+n_414497aa3513 -> n_9d17f97246ec [label=<Передає контрольовані<BR/>інтеграційні команди>];
+n_414497aa3513 -> n_0841e33bf313 [label=<Реєструє доступ і<BR/>результат оброблення<BR/>запиту>];
+n_8c66733eb483 -> n_974c2b6c4c3a [label=<Федеративно автентифікує<BR/>користувача>];
+n_8c66733eb483 -> n_038b0a6adae3 [label=<Зберігає технічний стан<BR/>сесій і політик доступу>];
+n_8c66733eb483 -> n_0a82e6426580 [label=<Зберігає версійовані<BR/>записи згод і відкликань>];
+n_8c66733eb483 -> n_0841e33bf313 [label=<Реєструє рішення<BR/>авторизації та зміни згод>];
+n_65af4e9c2544 -> n_e8f5a7fd4a93 [label=<Отримує детермінований<BR/>наступний крок і статус<BR/>сценарію>];
+n_65af4e9c2544 -> n_f76999497b71 [label=<Використовує допоміжні<BR/>функції розпізнавання,<BR/>структурування та<BR/>формування реплік>];
+n_65af4e9c2544 -> n_0a82e6426580 [label=<Читає мінімальний<BR/>клінічний контекст і<BR/>зберігає структуровану<BR/>взаємодію>];
+n_65af4e9c2544 -> n_038b0a6adae3 [label=<Зберігає життєвий цикл<BR/>сесії та незавершені дії>];
+n_65af4e9c2544 -> n_10373d53fe3a [label=<Зберігає короткоживучий<BR/>контекст і блокування>];
+n_65af4e9c2544 -> n_a3ff0b30ab9d [label=<Створює завдання<BR/>продовження, повторного<BR/>контакту або візиту>];
+n_65af4e9c2544 -> n_d8a2fa772daa [label=<Публікує події сесії та<BR/>взаємодії>];
+n_65af4e9c2544 -> n_0841e33bf313 [label=<Реєструє походження<BR/>сформованої репліки й<BR/>виконаного кроку>];
+n_e8f5a7fd4a93 -> n_c5b5925be1ff [label=<Завантажує підписану<BR/>опубліковану версію<BR/>визначення>];
+n_e8f5a7fd4a93 -> n_0a82e6426580 [label=<Читає та записує<BR/>відповіді, бали, ознаки й<BR/>структурований результат>];
+n_e8f5a7fd4a93 -> n_09af2d57a6c7 [label=<Передає завершений або<BR/>проміжний клінічний<BR/>результат для агрегації>];
+n_e8f5a7fd4a93 -> n_6e77a520fd2f [label=<Запитує передбачене<BR/>алгоритмом вимірювання>];
+n_e8f5a7fd4a93 -> n_a3ff0b30ab9d [label=<Створює контрольні<BR/>завдання та строки реакції>];
+n_e8f5a7fd4a93 -> n_d8a2fa772daa [label=<Публікує події результату,<BR/>прапорця, паузи та<BR/>завершення>];
+n_e8f5a7fd4a93 -> n_0841e33bf313 [label=<Фіксує версію, введення,<BR/>правило та результат<BR/>обчислення>];
+n_09af2d57a6c7 -> n_d3a975151687 [label=<Отримує чинні протоколи та<BR/>умови застосування>];
+n_09af2d57a6c7 -> n_17041e55290f [label=<Перевіряє коди та клінічні<BR/>відповідності>];
+n_09af2d57a6c7 -> n_adbf05951f47 [label=<Виконує пошук у локально<BR/>дозволеній базі знань>];
+n_09af2d57a6c7 -> n_0a82e6426580 [label=<Читає результати й<BR/>зберігає проєкти та<BR/>підтверджені траєкторії>];
+n_09af2d57a6c7 -> n_a3ff0b30ab9d [label=<Передає погоджений або<BR/>безпечний план супроводу>];
+n_09af2d57a6c7 -> n_d8a2fa772daa [label=<Публікує проєкти<BR/>рекомендацій і<BR/>підтверджені рішення>];
+n_09af2d57a6c7 -> n_0841e33bf313 [label=<Реєструє правила, джерела,<BR/>пояснення та клінічне<BR/>підтвердження>];
+n_f76999497b71 -> n_d381ebe1eeb5 [label=<Викликає дозволену модель<BR/>через політики<BR/>маршрутизації та<BR/>мінімізації даних>];
+n_f76999497b71 -> n_adbf05951f47 [label=<Отримує версійовані<BR/>фрагменти для<BR/>контрольованого пошуку>];
+n_f76999497b71 -> n_d3a975151687 [label=<Перевіряє посилання на<BR/>дозволені клінічні джерела>];
+n_f76999497b71 -> n_0841e33bf313 [label=<Реєструє модель, шаблон,<BR/>політику, джерела та<BR/>рішення запобіжників>];
+n_6e77a520fd2f -> n_64a7c9f573cc [label=<Отримує сигнали, медіа й<BR/>технічні метадані>];
+n_6e77a520fd2f -> n_d381ebe1eeb5 [label=<Викликає дозволені<BR/>спеціалізовані сигнальні<BR/>та мультимодальні моделі>];
+n_6e77a520fd2f -> n_1287fec9dc9f [label=<Зберігає зашифровані сирі<BR/>об&#x27;єкти та похідні<BR/>артефакти>];
+n_6e77a520fd2f -> n_0a82e6426580 [label=<Зберігає нормалізовані<BR/>показники, якість і версію<BR/>аналізатора>];
+n_6e77a520fd2f -> n_d8a2fa772daa [label=<Публікує подію готовності<BR/>або непридатності<BR/>вимірювання>];
+n_6e77a520fd2f -> n_0841e33bf313 [label=<Реєструє ланцюг оброблення<BR/>та параметри моделі>];
+n_a3ff0b30ab9d -> n_9d17f97246ec [label=<Передає нагадування, події<BR/>календаря, телемедичні<BR/>сеанси та ескалації>];
+n_a3ff0b30ab9d -> n_038b0a6adae3 [label=<Зберігає завдання, строки,<BR/>повтори та ідемпотентні<BR/>ключі>];
+n_a3ff0b30ab9d -> n_d8a2fa772daa [label=<Публікує події виконання,<BR/>прострочення та ескалації>];
+n_a3ff0b30ab9d -> n_0841e33bf313 [label=<Реєструє створення,<BR/>доставку та результат<BR/>завдання>];
+n_9d17f97246ec -> n_a7fbbad18fb0 [label=<Обмінюється профільованими<BR/>клінічними ресурсами>];
+n_9d17f97246ec -> n_17041e55290f [label=<Валідує коди й версії<BR/>класифікаторів>];
+n_9d17f97246ec -> n_e456f42ecad4 [label=<Отримує або публікує<BR/>підтримувані DICOM-об&#x27;єкти>];
+n_9d17f97246ec -> n_7257d314937e [label=<Надсилає мінімізовані<BR/>повідомлення та отримує<BR/>статус доставки>];
+n_9d17f97246ec -> n_e935214d8cb8 [label=<Синхронізує слоти, події,<BR/>перенесення й скасування>];
+n_9d17f97246ec -> n_0a2e5c4dcbd0 [label=<Створює захищені сеанси та<BR/>короткоживучі запрошення>];
+n_9d17f97246ec -> n_ce5b1e302c6c [label=<Передає кризову ескалацію<BR/>за визначеним маршрутом>];
+n_9d17f97246ec -> n_0a82e6426580 [label=<Читає або записує<BR/>нормалізовані інтеграційні<BR/>дані>];
+n_9d17f97246ec -> n_0bc8731282b4 [label=<Передає дозволені<BR/>знеособлені або агреговані<BR/>дані>];
+n_9d17f97246ec -> n_d8a2fa772daa [label=<Публікує статуси<BR/>інтеграцій та помилки<BR/>доставки>];
+n_9d17f97246ec -> n_0841e33bf313 [label=<Реєструє мету, згоду,<BR/>склад даних і зовнішній<BR/>результат>];
+n_ec3c8da970f3 -> n_3376e40b705d [label=<Імпортує проєктні<BR/>документи зі збереженням<BR/>походження>];
+n_ec3c8da970f3 -> n_c5b5925be1ff [label=<Публікує лише погоджені,<BR/>підписані й протестовані<BR/>версії>];
+n_ec3c8da970f3 -> n_d8a2fa772daa [label=<Публікує події публікації,<BR/>відкликання та закінчення<BR/>чинності>];
+n_ec3c8da970f3 -> n_0841e33bf313 [label=<Реєструє зміни, перевірки,<BR/>погодження та випуски>];
+n_d8a2fa772daa -> n_a3ff0b30ab9d [label=<Доставляє події для<BR/>створення або оновлення<BR/>завдань>];
+n_d8a2fa772daa -> n_0841e33bf313 [label=<Доставляє доменні події<BR/>для незмінного журналу>];
+n_0841e33bf313 -> n_57380ace561c [label=<Записує незмінні події та<BR/>контрольні суми>];
+n_0841e33bf313 -> n_0bc8731282b4 [label=<Передає очищені технічні<BR/>та якісні показники>];
+}

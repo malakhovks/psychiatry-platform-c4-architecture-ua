@@ -1,0 +1,42 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.12 — Компоненти інтеграційного шлюзу</B><BR/><FONT POINT-SIZE="12">Компоненти FHIR/DICOM-обміну, термінологій, повідомлень, календаря, телемедицини та<BR/>приватності.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Інтеграційний шлюз</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_814d249a9505 [label=<<B>Адаптер календаря</B><BR/><FONT POINT-SIZE="10">[Компонент · Calendar API]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_33fc880b462c [label=<<B>Контроль політики згод</B><BR/><FONT POINT-SIZE="10">[Компонент · Policy enforcement]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_4cb9c41912d7 [label=<<B>Конектор PACS / DICOM</B><BR/><FONT POINT-SIZE="10">[Компонент · DICOMweb]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_916017ab9937 [label=<<B>Конектор МІС / EHR</B><BR/><FONT POINT-SIZE="10">[Компонент · FHIR/REST connector]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_bc4ac4e44917 [label=<<B>FHIR API та мапінг</B><BR/><FONT POINT-SIZE="10">[Компонент · HL7 FHIR]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_937a225df393 [label=<<B>Адаптер повідомлень</B><BR/><FONT POINT-SIZE="10">[Компонент · SMS/e-mail/push API]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_00553d6e64f0 [label=<<B>Псевдонімізація для<BR/>аналітики</B><BR/><FONT POINT-SIZE="10">[Компонент · Privacy service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_6503933241f6 [label=<<B>Адаптер телемедицини</B><BR/><FONT POINT-SIZE="10">[Компонент · WebRTC platform API]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_7518abf6c946 [label=<<B>Адаптер термінологій</B><BR/><FONT POINT-SIZE="10">[Компонент · Terminology API]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_d41792c094aa [label=<<B>Календар і запис на прийом</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_3be1d182bd81 [label=<<B>МІС / EHR / ЕСОЗ</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_3145c0474e62 [label=<<B>Кризова / екстрена служба</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#C92A2A", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_dff60b2c2060 [label=<<B>Провайдер повідомлень</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_b3c512da84fb [label=<<B>PACS / DICOM-сховище</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_3413ea645d36 [label=<<B>Аналітичне сховище</B><BR/><FONT POINT-SIZE="10">[Сховище даних · Analytics warehouse]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_384146de0c5d [label=<<B>API-шлюз і BFF</B><BR/><FONT POINT-SIZE="10">[Контейнер · Reverse proxy / API gateway]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_40b119007c9f [label=<<B>Клінічне сховище</B><BR/><FONT POINT-SIZE="10">[Сховище даних · FHIR-oriented clinical repository]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_eb4c5110ae64 [label=<<B>Сервіс завдань, нагадувань і<BR/>ескалацій</B><BR/><FONT POINT-SIZE="10">[Контейнер · Workflow scheduler]</FONT>>, shape=box, style="rounded,filled", fillcolor="#B7791F", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_8ef8376f7755 [label=<<B>Платформа телемедицини</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_09b340c80e8a [label=<<B>Сервіс термінологій</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_384146de0c5d -> n_eb4c5110ae64 [ label=<Передає команди щодо завдань,<BR/>нагадувань і візитів>];
+n_bc4ac4e44917 -> n_33fc880b462c [ label=<Перевіряє право на обмін клінічним<BR/>ресурсом>];
+n_33fc880b462c -> n_916017ab9937 [ label=<Дозволяє мінімізований обмін із МІС>];
+n_916017ab9937 -> n_3be1d182bd81 [ label=<Надсилає або отримує профільовані<BR/>ресурси>];
+n_7518abf6c946 -> n_09b340c80e8a [ label=<Перевіряє код і версію словника>];
+n_4cb9c41912d7 -> n_b3c512da84fb [ label=<Обмінюється DICOM-об&#x27;єктами>];
+n_937a225df393 -> n_dff60b2c2060 [ label=<Надсилає повідомлення>];
+n_814d249a9505 -> n_d41792c094aa [ label=<Синхронізує подію або слот>];
+n_6503933241f6 -> n_8ef8376f7755 [ label=<Створює захищений сеанс>];
+n_33fc880b462c -> n_00553d6e64f0 [ label=<Дозволяє підготовку набору для<BR/>вторинного використання>];
+n_00553d6e64f0 -> n_3413ea645d36 [ label=<Передає знеособлений або агрегований<BR/>набір>];
+n_384146de0c5d -> n_bc4ac4e44917 [ label=<Передає авторизований запит обміну<BR/>клінічними ресурсами>];
+n_bc4ac4e44917 -> n_7518abf6c946 [ label=<Передає коди для валідації та<BR/>нормалізації>];
+}

@@ -1,0 +1,23 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.13 — Компоненти аудиту та спостережуваності</B><BR/><FONT POINT-SIZE="12">Компоненти незмінного аудиту, походження, безпекового моніторингу, звітності та очищеної<BR/>телеметрії.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Сервіс аудиту та спостережуваності</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_c122e6c134fd [label=<<B>Збирач аудиту</B><BR/><FONT POINT-SIZE="10">[Компонент · Audit ingestion]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_999c670f8f33 [label=<<B>Формувач звітів</B><BR/><FONT POINT-SIZE="10">[Компонент · Reporting]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_c64d6aeffeae [label=<<B>Сервіс походження даних і<BR/>рішень</B><BR/><FONT POINT-SIZE="10">[Компонент · Provenance graph]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_d119d1098b26 [label=<<B>Монітор безпеки</B><BR/><FONT POINT-SIZE="10">[Компонент · SIEM integration]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_c433d8443bf3 [label=<<B>Експортер телеметрії</B><BR/><FONT POINT-SIZE="10">[Компонент · OpenTelemetry]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_3413ea645d36 [label=<<B>Аналітичне сховище</B><BR/><FONT POINT-SIZE="10">[Сховище даних · Analytics warehouse]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_e37cdb3e9f92 [label=<<B>Незмінне сховище аудиту</B><BR/><FONT POINT-SIZE="10">[Сховище даних · WORM / append-only storage]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_c7796133ac1d [label=<<B>Адміністратор платформи та<BR/>безпеки</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_c122e6c134fd -> n_e37cdb3e9f92 [ label=<Записує підписану append-only подію>];
+n_c122e6c134fd -> n_c64d6aeffeae [ label=<Передає подію для зв&#x27;язування<BR/>походження>];
+n_c64d6aeffeae -> n_999c670f8f33 [ label=<Формує перевірюваний ланцюг доказів>];
+n_c122e6c134fd -> n_d119d1098b26 [ label=<Передає події доступу й поведінкові<BR/>ознаки>];
+n_d119d1098b26 -> n_999c670f8f33 [ label=<Передає підтверджені інциденти та<BR/>реакції>];
+n_c433d8443bf3 -> n_3413ea645d36 [ label=<Передає очищені технічні метрики>];
+}

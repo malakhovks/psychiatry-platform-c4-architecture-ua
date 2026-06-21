@@ -1,0 +1,32 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.03 — Компоненти студії алгоритмів</B><BR/><FONT POINT-SIZE="12">Компоненти формалізації та керування життєвим циклом алгоритму.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Студія алгоритмів і протоколів</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_82e79b78f358 [label=<<B>Маршрут клінічного<BR/>погодження</B><BR/><FONT POINT-SIZE="10">[Компонент · Workflow engine]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_7c012fa0049e [label=<<B>Клінічний і технічний<BR/>валідатор</B><BR/><FONT POINT-SIZE="10">[Компонент · Rules and schema validation]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_d1cce12dd4aa [label=<<B>Редактор визначення<BR/>алгоритму</B><BR/><FONT POINT-SIZE="10">[Компонент · Schema-driven editor]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_22a2655265f6 [label=<<B>Публікатор і відкликання</B><BR/><FONT POINT-SIZE="10">[Компонент · Release service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_b4d64920ec8b [label=<<B>Імпортер вихідних матеріалів</B><BR/><FONT POINT-SIZE="10">[Компонент · Document import]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_d1038ddad4bb [label=<<B>Симулятор і тестові набори</B><BR/><FONT POINT-SIZE="10">[Компонент · Test harness]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_2e07cf3754b4 [label=<<B>Керування версіями</B><BR/><FONT POINT-SIZE="10">[Компонент · Version control]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_b30059fba026 [label=<<B>Репозиторій вихідних<BR/>алгоритмів</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_9c1b2838ecd8 [label=<<B>Клінічний методолог</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#8A5A00", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_ace1c56edb4b [label=<<B>Реєстр алгоритмів</B><BR/><FONT POINT-SIZE="10">[Сховище даних · Versioned registry]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B><BR/><FONT POINT-SIZE="10">[Контейнер · Audit and observability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_c7796133ac1d [label=<<B>Адміністратор платформи та<BR/>безпеки</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_c7796133ac1d -> n_5f5685eeff97 [ label=<Контролює журнали, події безпеки та<BR/>технічні метрики>];
+n_b4d64920ec8b -> n_b30059fba026 [ label=<Завантажує документ і метадані джерела>];
+n_b4d64920ec8b -> n_d1cce12dd4aa [ label=<Створює контрольовану чернетку<BR/>визначення>];
+n_d1cce12dd4aa -> n_7c012fa0049e [ label=<Передає версію на формальну та<BR/>клінічну перевірку>];
+n_7c012fa0049e -> n_d1038ddad4bb [ label=<Допускає до симуляції лише валідну<BR/>структуру>];
+n_d1038ddad4bb -> n_82e79b78f358 [ label=<Передає докази проходження тестів>];
+n_82e79b78f358 -> n_2e07cf3754b4 [ label=<Фіксує погоджену редакцію та статус>];
+n_2e07cf3754b4 -> n_22a2655265f6 [ label=<Передає незмінний кандидат на випуск>];
+n_22a2655265f6 -> n_ace1c56edb4b [ label=<Публікує або відкликає підписану<BR/>версію>];
+n_22a2655265f6 -> n_5f5685eeff97 [ label=<Фіксує випуск, автора, погодження та<BR/>контрольну суму>];
+n_9c1b2838ecd8 -> n_b4d64920ec8b [ label=<Ініціює імпорт або створення<BR/>контрольованої чернетки>];
+}

@@ -1,0 +1,29 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.25", ranksep="0.30", fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded,filled", fillcolor="#F4F7FA", color="#486581", margin="0.16,0.10"];
+edge [color="#7B8794", penwidth=1.2, arrowsize=0.7];
+label=<<B>DYN.03 — Збір скарг і адаптивна комунікація</B><BR/><FONT POINT-SIZE="11">Збір скарг і потреб із адаптацією каналу та стилю без зміни клінічного змісту.</FONT>>;
+{ rank=same;
+p_n_b1b0b8de8a62 [label=<<B>Пацієнт</B>>, fillcolor="#084C61", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_8a923be70a11 [label=<<B>Застосунок пацієнта</B>>, fillcolor="#0B7285", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_384146de0c5d [label=<<B>API-шлюз і BFF</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_f9075d486a51 [label=<<B>Оркестратор взаємодії</B>>, fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", shape=box];
+p_n_4a71738c36d2 [label=<<B>Оркестратор ШІ та<BR/>контроль безпеки</B>>, fillcolor="#6741D9", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_40b119007c9f [label=<<B>Клінічне сховище</B>>, fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", shape=box];
+p_n_78e6a86e3609 [label=<<B>Детермінований рушій<BR/>сценаріїв</B>>, fillcolor="#2B6CB0", fontcolor="#FFFFFF", color="#486581", shape=box];
+p_n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B>>, fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", shape=box];
+}
+step_01 [label=< <B>1.</B> Пацієнт → Застосунок пацієнта<BR/><FONT POINT-SIZE="10">Описує скарги, потреби та мету звернення</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 [label=< <B>2.</B> Застосунок пацієнта → API-шлюз і BFF<BR/><FONT POINT-SIZE="10">Передає текст, транскрипт або медіа за згодою</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_01 -> step_02;
+step_03 [label=< <B>3.</B> API-шлюз і BFF → Оркестратор взаємодії<BR/><FONT POINT-SIZE="10">Створює подію введення</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_02 -> step_03;
+step_04 [label=< <B>4.</B> Оркестратор взаємодії → Оркестратор ШІ та контроль<BR/>безпеки<BR/><FONT POINT-SIZE="10">Структурує вільний текст і визначає невизначені поля</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_03 -> step_04;
+step_05 [label=< <B>5.</B> Оркестратор взаємодії → Клінічне сховище<BR/><FONT POINT-SIZE="10">Зберігає підтверджені структуровані дані та джерело</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_04 -> step_05;
+step_06 [label=< <B>6.</B> Оркестратор взаємодії → Детермінований рушій<BR/>сценаріїв<BR/><FONT POINT-SIZE="10">Отримує наступне уточнення або формальний крок</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_05 -> step_06;
+step_07 [label=< <B>7.</B> Оркестратор взаємодії → Сервіс аудиту та<BR/>спостережуваності<BR/><FONT POINT-SIZE="10">Фіксує канал, політику стилю та походження репліки</FONT> >, fillcolor="#FFFFFF", color="#486581", penwidth=1.5];
+step_06 -> step_07;
+}

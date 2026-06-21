@@ -1,0 +1,36 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.09 — Компоненти оркестратора ШІ та запобіжників</B><BR/><FONT POINT-SIZE="12">Компоненти безпечного застосування генеративних і спеціалізованих моделей ШІ.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Оркестратор ШІ та контроль безпеки</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_1655e04d57aa [label=<<B>Контроль людиною</B><BR/><FONT POINT-SIZE="10">[Компонент · Human-in-the-loop]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_253c38667a70 [label=<<B>Маршрутизатор моделей</B><BR/><FONT POINT-SIZE="10">[Компонент · Model gateway]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_182578176bcb [label=<<B>Валідатор структурованого<BR/>виходу</B><BR/><FONT POINT-SIZE="10">[Компонент · Schema and policy validation]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_0d0b5b8e203f [label=<<B>Менеджер шаблонів і політик</B><BR/><FONT POINT-SIZE="10">[Компонент · Prompt registry]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_5e8091b94410 [label=<<B>Пошук у базі знань</B><BR/><FONT POINT-SIZE="10">[Компонент · RAG / vector search]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_4015bb97f100 [label=<<B>Компонувальник відповіді</B><BR/><FONT POINT-SIZE="10">[Компонент · NLG service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_5cb9e4723669 [label=<<B>Клінічні та контентні<BR/>запобіжники</B><BR/><FONT POINT-SIZE="10">[Компонент · Policy and classifiers]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_c63bbaa11129 [label=<<B>Структурований екстрактор</B><BR/><FONT POINT-SIZE="10">[Компонент · LLM/NLP]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_c3da19e3d57e [label=<<B>Реєстр і середовище моделей<BR/>ШІ</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6741D9", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_5f5685eeff97 [label=<<B>Сервіс аудиту та<BR/>спостережуваності</B><BR/><FONT POINT-SIZE="10">[Контейнер · Audit and observability service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#4A5568", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_f9075d486a51 [label=<<B>Оркестратор взаємодії</B><BR/><FONT POINT-SIZE="10">[Контейнер · Application service]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_609849034d86 [label=<<B>База знань та індекс пошуку</B><BR/><FONT POINT-SIZE="10">[Сховище даних · Document and vector store]</FONT>>, shape=cylinder, style="rounded,filled", fillcolor="#EDF2F7", fontcolor="#1A202C", color="#486581", penwidth=1.5];
+n_0a99d320f3b9 [label=<<B>Репозиторій клінічних<BR/>протоколів і знань</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_f9075d486a51 -> n_5f5685eeff97 [ label=<Реєструє походження сформованої<BR/>репліки й виконаного кроку>];
+n_0d0b5b8e203f -> n_5cb9e4723669 [ label=<Передає версійовані правила й<BR/>обмеження>];
+n_5e8091b94410 -> n_609849034d86 [ label=<Отримує дозволені фрагменти з версією<BR/>джерела>];
+n_5e8091b94410 -> n_253c38667a70 [ label=<Передає контекст із посиланнями>];
+n_c63bbaa11129 -> n_253c38667a70 [ label=<Запитує структуроване вилучення>];
+n_5cb9e4723669 -> n_253c38667a70 [ label=<Дозволяє лише мінімізований і<BR/>допустимий запит>];
+n_253c38667a70 -> n_c3da19e3d57e [ label=<Викликає обрану модель>];
+n_253c38667a70 -> n_182578176bcb [ label=<Передає відповідь моделі>];
+n_182578176bcb -> n_5cb9e4723669 [ label=<Виконує післягенераційний контроль>];
+n_5cb9e4723669 -> n_4015bb97f100 [ label=<Передає дозволений зміст>];
+n_4015bb97f100 -> n_1655e04d57aa [ label=<Маркує клінічно значущі проєкти для<BR/>перегляду>];
+n_1655e04d57aa -> n_5f5685eeff97 [ label=<Фіксує режим автоматизації та рішення<BR/>людини>];
+n_f9075d486a51 -> n_0d0b5b8e203f [ label=<Передає контекст завдання та версію<BR/>політики формування відповіді>];
+n_0d0b5b8e203f -> n_5e8091b94410 [ label=<Передає запит на контрольований пошук<BR/>джерел>];
+}

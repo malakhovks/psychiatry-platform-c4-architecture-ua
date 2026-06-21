@@ -1,0 +1,31 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="1.00", splines=polyline, fontname="DejaVu Sans", labelloc=t, labeljust=l];
+node [fontname="DejaVu Sans", fontsize=12, margin="0.14,0.09"];
+edge [fontname="DejaVu Sans", fontsize=11, color="#486581", fontcolor="#334E68", penwidth=1.4, arrowsize=0.8];
+label=<<B>C3.02 — Компоненти кабінету медичного працівника</B><BR/><FONT POINT-SIZE="12">Компоненти кабінету медичного працівника з окремим контролем ризиків, пояснень і<BR/>підтвердження.</FONT>>;
+subgraph cluster_scope {
+label=<<B>Кабінет медичного працівника</B>>; color="#486581"; penwidth=2.2; style="rounded";
+n_6e16ac4f965e [label=<<B>Підпис і клінічне<BR/>підтвердження</B><BR/><FONT POINT-SIZE="10">[Компонент · Web UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_d4475f6f1617 [label=<<B>Робоча область оцінювання</B><BR/><FONT POINT-SIZE="10">[Компонент · Web UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_2c611944774f [label=<<B>Часова шкала пацієнта</B><BR/><FONT POINT-SIZE="10">[Компонент · Web UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_2cf200f87bea [label=<<B>Панель протоколів</B><BR/><FONT POINT-SIZE="10">[Компонент · Web UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_f2b212a22f52 [label=<<B>Панель червоних прапорців</B><BR/><FONT POINT-SIZE="10">[Компонент · Web UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#C92A2A", penwidth=3];
+n_a7ec97cb48db [label=<<B>Перегляд результатів</B><BR/><FONT POINT-SIZE="10">[Компонент · Web UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_ea4cce70084c [label=<<B>Телемедична консультація</B><BR/><FONT POINT-SIZE="10">[Компонент · WebRTC client]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_f787c2558c64 [label=<<B>Редактор траєкторії</B><BR/><FONT POINT-SIZE="10">[Компонент · Web UI]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+}
+n_f0d38fbc8ca4 [label=<<B>Черговий кризовий фахівець</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_285f9a003f67 [label=<<B>Медична сестра / координатор</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_384146de0c5d [label=<<B>API-шлюз і BFF</B><BR/><FONT POINT-SIZE="10">[Контейнер · Reverse proxy / API gateway]</FONT>>, shape=box, style="rounded,filled", fillcolor="#F4F7FA", fontcolor="#18324A", color="#486581", penwidth=1.5];
+n_f465f9f86773 [label=<<B>Лікар-психіатр</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_487bf0f57271 [label=<<B>Психолог / психотерапевт</B><BR/><FONT POINT-SIZE="10">[Особа]</FONT>>, shape=box, style="rounded,filled", fillcolor="#6C4AB6", fontcolor="#FFFFFF", color="#486581", penwidth=1.5];
+n_8ef8376f7755 [label=<<B>Платформа телемедицини</B><BR/><FONT POINT-SIZE="10">[Програмна система]</FONT>>, shape=box, style="rounded,filled", fillcolor="#E9EEF4", fontcolor="#263238", color="#486581", penwidth=1.5];
+n_2c611944774f -> n_384146de0c5d [ label=<Отримує часову шкалу з походженням<BR/>даних>];
+n_d4475f6f1617 -> n_384146de0c5d [ label=<Надсилає професійні спостереження та<BR/>уточнення>];
+n_a7ec97cb48db -> n_384146de0c5d [ label=<Отримує бали, правила, версії та<BR/>пояснення>];
+n_f2b212a22f52 -> n_384146de0c5d [ label=<Отримує пріоритетні прапорці й статуси<BR/>реакції>];
+n_2cf200f87bea -> n_384146de0c5d [ label=<Отримує протоколи та умови<BR/>відповідності>];
+n_f787c2558c64 -> n_384146de0c5d [ label=<Зберігає коригування проєкту<BR/>траєкторії>];
+n_ea4cce70084c -> n_8ef8376f7755 [ label=<Приєднується до захищеного сеансу>];
+n_6e16ac4f965e -> n_384146de0c5d [ label=<Підтверджує або відхиляє клінічно<BR/>значущий проєкт>];
+}

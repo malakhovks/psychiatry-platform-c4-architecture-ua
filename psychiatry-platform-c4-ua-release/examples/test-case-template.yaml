@@ -1,0 +1,60 @@
+testSuiteId: "example.algorithm-regression"
+algorithmId: "example.universal-screening"
+algorithmVersion: "0.1.0-draft"
+requirements:
+  - "Кожний scoring rule має happy-path і boundary тести."
+  - "Кожний red flag має окремий тест із перевіркою завдання та підтвердження."
+  - "Кожний transition має щонайменше один позитивний і один негативний тест."
+  - "Пропущено, невідомо, не застосовно й нуль тестуються окремо."
+  - "Непридатна якість вимірювання не формує клінічний результат."
+  - "Відсутня згода блокує лише відповідну операцію й пропонує безпечну альтернативу."
+  - "Повторний запит з тим самим idempotency key не дублює відповідь або завдання."
+
+cases:
+  - testId: "boundary.minimum"
+    type: "boundary"
+    arrange:
+      sessionState: "ACTIVE"
+      pinnedVersion: "0.1.0-draft"
+    inputs:
+      answers:
+        q01:
+          code: "option_0"
+    expect:
+      score: 0
+      noUnexpectedRedFlags: true
+      provenanceContains:
+        - "algorithmId"
+        - "algorithmVersion"
+        - "ruleId"
+        - "inputIds"
+
+  - testId: "critical.acknowledgement"
+    type: "red_flag"
+    arrange:
+      sessionState: "ACTIVE"
+      crisisProviderAvailable: true
+    inputs:
+      answers:
+        q01:
+          code: "critical_option"
+    expect:
+      redFlagIds:
+        - "risk.example-critical"
+      criticalTaskCreated: true
+      acknowledgementRequired: true
+      fallbackTimerCreated: true
+      normalFlowNotAdvancedBeforeFlagPersisted: true
+
+  - testId: "measurement.bad-quality"
+    type: "quality_failure"
+    arrange:
+      measurementProfile: "example.voice"
+    inputs:
+      quality:
+        signalToNoiseRatio: "below-approved-threshold"
+    expect:
+      analysisStarted: false
+      userAction: "repeat_or_manual_review"
+      clinicalResultCreated: false
+      qualityEventAudited: true
